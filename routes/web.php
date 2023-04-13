@@ -115,11 +115,11 @@ Route::post('/bayar/pinjaman/kill/{id}', [BayarPinjamanController::class, 'kill'
 Route::get('/bayar/pinjaman/restore/{id}', [BayarPinjamanController::class, 'restore'])->middleware(['auth', 'verified'])->name('bayar.pinjaman.restore'); //tidak di pake
 
 // Profile
-Route::get('/profile', [KeluargaController::class, 'profile'])->middleware(['auth', 'verified'])->name('profile');
+Route::get('/profile', [KeluargaController::class, 'profile'])->middleware(['auth'])->name('profile');
 Route::get('/profile/user/{id}', [KeluargaController::class, 'profile_user'])->middleware(['auth', 'verified'])->name('profile.user');
 Route::get('/profile/edit/{id}', [KeluargaController::class, 'profile_edit'])->middleware(['auth', 'verified'])->name('profile.edit');
-Route::get('/pengaturan/email', [KeluargaController::class, 'edit_email'])->middleware(['auth', 'verified'])->name('pengaturan.email');
-Route::post('/pengaturan/ubah-email', [KeluargaController::class, 'ubah_email'])->middleware(['auth', 'verified'])->name('pengaturan.ubah-email');
+Route::get('/pengaturan/email', [KeluargaController::class, 'edit_email'])->middleware(['auth'])->name('pengaturan.email');
+Route::post('/pengaturan/ubah-email', [KeluargaController::class, 'ubah_email'])->middleware(['auth'])->name('pengaturan.ubah-email');
 Route::get('/pengaturan/password', [KeluargaController::class, 'edit_password'])->middleware(['auth', 'verified'])->name('pengaturan.password');
 Route::post('/pengaturan/ubah-password', [KeluargaController::class, 'ubah_password'])->middleware(['auth', 'verified'])->name('pengaturan.ubah-password');
 //Peraturan
