@@ -6,13 +6,13 @@
 
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Home</a>
+            <a href="/" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{Route('pemasukan.index')}}" class="nav-link">Bayar</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{Route('pengeluaran.index')}}" class="nav-link">Profile</a>
+            <a href="{{Route('profile')}}" class="nav-link">Profile</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{Route('pengeluaran.index')}}" class="nav-link">Pinjam</a>
@@ -30,11 +30,14 @@
         <?php
 
         use App\Models\Pengajuan;
+        use App\Models\User;
 
         $pengajuan_total = Pengajuan::all()->count();
         $pengajuan = Pengajuan::all();
         $pengajuan_pinjaman_total = Pengajuan::where('kategori', 'Pinjaman')->count();
         $pengajuan_pinjaman = Pengajuan::where('kategori', 'Pinjaman');
+        $pengajuan_user_total = Pengajuan::where('anggota_id', Auth::user()->id)->count();
+        $pengajuan_user = Pengajuan::where('anggota_id', Auth::user()->id)->get();
         ?>
         <!-- Notif buat bendahara dan sekertaris -->
         @if(Auth::user()->role == "Admin" || Auth::user()->role == "Bendahara" ||Auth::user()->role == "Sekertaris")
@@ -51,12 +54,14 @@
                 <a href="{{Route('pengajuan.show',Crypt::encrypt($data->id))}}" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-
-                        <img src="" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                        <?php
+                        $user = User::find($data->anggota_id)
+                        ?>
+                        <img src="{{ asset($user->foto) }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 {{$data->anggota->name}}
-                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                <span class="float-right text-sm text-danger">{{$data->status}}</i></span>
                             </h3>
                             <p class="text-sm">{{$data->kategori}} {{ "Rp " . number_format($data->jumlah,2,',','.') }} </p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</p>
@@ -67,6 +72,41 @@
                 @endforeach
                 <div class="dropdown-divider"></div>
                 <a href="{{Route('table-pengajuan-kas')}}" class="dropdown-item dropdown-footer">See All Messages</a>
+            </div>
+        </li>
+        @endif
+        @if(Auth::user()->role == "Anggota" || Auth::user()->role == "Penasehat")
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="far fa-bell"></i>
+                @if($pengajuan_user_total >= 1)
+                <span class="badge badge-warning navbar-badge">{{$pengajuan_user_total}}</span>
+                @else
+                @endif
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                @foreach($pengajuan_user as $data)
+                <a href="{{Route('pengajuan.show',Crypt::encrypt($data->id))}}" class="dropdown-item">
+                    <!-- Message Start -->
+                    <div class="media">
+                        <?php
+                        $user = User::find($data->anggota_id)
+                        ?>
+                        <img src="{{ asset($user->foto) }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                        <div class="media-body">
+                            <h3 class="dropdown-item-title">
+                                {{$data->anggota->name}}
+                                <span class="float-right text-sm text-danger">{{$data->status}}</i></span>
+                            </h3>
+                            <p class="text-sm">{{$data->kategori}} {{ "Rp " . number_format($data->jumlah,2,',','.') }} </p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</p>
+                        </div>
+                    </div>
+                    <!-- Message End -->
+                </a>
+                @endforeach
+                <div class="dropdown-divider"></div>
+                <a href="{{Route('table-pengajuan-pinjaman')}}" class="dropdown-item dropdown-footer">See All Messages</a>
             </div>
         </li>
         @endif
@@ -84,12 +124,14 @@
                 <a href="{{Route('pengajuan.show',Crypt::encrypt($data->id))}}" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-
-                        <img src="" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                        <?php
+                        $user = User::find($data->anggota_id)
+                        ?>
+                        <img src="{{ asset($user->foto) }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 {{$data->anggota->name}}
-                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                <span class="float-right text-sm text-danger">{{$data->status}}</i></span>
                             </h3>
                             <p class="text-sm">{{$data->kategori}} {{ "Rp " . number_format($data->jumlah,2,',','.') }} </p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</p>

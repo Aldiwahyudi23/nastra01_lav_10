@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
-                                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> {{ $total_pengeluaran_lain / $total_dana_kas  *100/100}}%</span>
+                                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 0%</span>
                                     <h5 class="description-header">{{"Rp" . number_format(  $total_dana_kas - $total_pengeluaran_lain,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO KAS</span>
                                 </div>
@@ -62,7 +62,7 @@
                             <!-- /.col -->
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
-                                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
+                                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 0%</span>
                                     <h5 class="description-header">{{"Rp" . number_format( $total_dana_amal - $total_pengeluaran_amal,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO AMAL</span>
                                 </div>
@@ -71,7 +71,7 @@
                             <!-- /.col -->
                             <div class="col-sm-3 col-6">
                                 <div class="description-block">
-                                    <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
+                                    <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 0%</span>
                                     <h5 class="description-header">{{"Rp" . number_format( $total_dana_pinjam -  $total_pengeluaran_pinjaman,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO PINJAMAN</span>
                                 </div>

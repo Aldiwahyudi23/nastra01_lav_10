@@ -1,7 +1,7 @@
 <footer id"headera" class=" navbar-light bg-white navbar-expand d-md-none d-lg-none d-xl-none" id="headera">
-    <ul class="navbar-nav nav-justified w-100">
+    <ul class="navbar-nav nav-justified">
         <li class="nav-item ">
-            <a href="/dashboard" class="nav-link text-center " id="imah"><i class=" fas fa-home lg-6" width="1.5em" height="1.5em"></i><span class="small d-block">Home</span></a>
+            <a href="/" class="nav-link text-center " id="imah"><i class=" fas fa-home lg-6" width="1.5em" height="1.5em"></i><span class="small d-block">Home</span></a>
         </li>
         @if (Auth::user()->program1 == "Kas")
 
@@ -10,7 +10,7 @@
         </li>
         @endif
         <li class="nav-item">
-            <a href="/profile"><img src="{{ asset( Auth::user()->foto) }}" width="45px" height="45px" alt="Saya" class="brand-image img-circle elevation-3">
+            <a href="{{Route('profile')}}"><img src="{{ asset( Auth::user()->foto) }}" width="45px" height="45px" alt="Saya" class="brand-image img-circle elevation-3">
             </a>
         </li>
         @if(Auth::user()->program1 == "Kas")
@@ -23,4 +23,9 @@
         </li>
 
     </ul>
-    <ul>
+
+    <marquee>
+        <strong>KELUARGA BESAR Alm. MA HAYA. Mengucapkan selamat menunaikan Ibadah PUASA </strong>
+    </marquee>
+
+</footer>
