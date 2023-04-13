@@ -1,440 +1,350 @@
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Sidebar -->
-      <div class="sidebar">
-          <!-- Sidebar user panel (optional) -->
-          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-              <div class="image">
-                  <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-              </div>
-              <div class="info">
-                  <a href="#" class="d-block">Alexander Pierce</a>
-              </div>
-          </div>
+<?php
 
-          <!-- Sidebar Menu -->
-          <nav class="mt-2">
-              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                  <!-- Add icons to the links using the .nav-icon class
+use App\Models\Anggaran;
+use App\Models\Anggota;
+use App\Models\AsetPinjam;
+use App\Models\Pengajuan;
+use App\Models\Program;
+
+$jumlah_trush = Anggota::withTrashed()->count();
+$jumlah_anggota_keluarga = Anggota::withTrashed()->count();
+
+$pengajuan = Pengajuan::all()->count();
+$bayar = Pengajuan::where('kategori', 'Kas')->count();
+$pinjaman = Pengajuan::where('kategori', 'Pinjaman')->count();
+$bayar_pinjaman = Pengajuan::where('kategori', 'Bayar_Pinjaman')->count();
+$bayar_tabungan = Pengajuan::where('kategori', 'Tabungan')->count();
+
+// Data Anggaran
+$data_anggaran = Anggaran::all();
+
+//
+$data_pinjaman = AsetPinjam::find(1);
+?>
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                  
                with font-awesome or any other icon font library -->
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-edit"></i>
-                          <p>
-                              Pengajuan
-                              <i class="fas fa-angle-left right"></i>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="{{Route('table-pengajuan-kas')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>KAS</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('table-pengajuan-tabungan')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Tabungan</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('table-pengajuan-pinjaman')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Pinjaman</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('table-pengajuan-bayar_pinjaman')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Bayar Pinjaman</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-table"></i>
-                          <p>
-                              Mater Data
-                              <i class="fas fa-angle-left right"></i>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="{{Route('program.index')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Data Program</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('anggaran.index')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Data Anggaran</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('aset.index')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Data Aset</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('role.index')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Role /Akses</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('role.index')}}" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>User</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="nav-item has-treeview" id="liViewTrash">
-                      <a href="#" class="nav-link" id="ViewTrash">
-                          <i class="nav-icon fas fa-recycle"></i>
-                          <p>
-                              View Trash
+                <li class="nav-item">
+                    <a href="/profile" class="nav-link" id="pengajuanpinjam">
+                        <img src="{{ asset( Auth::user()->foto) }}" width="50%" alt="AdminLTE Logo" class="img-circle elevation-3"> <br>
+                        <p> {{ Auth::User()->name}} </p><br>
+                        <p> {{ Auth::User()->email }} </p>
 
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview ml-4">
-                          <li class="nav-item">
-                              <a href="{{Route('role.trash')}}" class="nav-link" id="TrashJadwal">
-                                  <i class="fas fa-calendar-alt nav-icon"></i>
-                                  <p>Trash Role</p>
-                              </a>
-                          </li>
+                    </a>
+                </li>
+                @if (Auth::user()->role == "Admin" || Auth::user()->role == "Sekertaris")
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Pengajuan
+                            @if ($pengajuan == 0)
+                            @else
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">{{$pengajuan}}</span>
+                            @endif
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-kas')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>KAS</p>
+                                @if ($bayar == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$bayar}}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-tabungan')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tabungan</p>
+                                @if ($bayar_tabungan == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$bayar_tabungan}}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-pinjaman')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pinjaman</p>
+                                @if ($pinjaman == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$pinjaman}}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-bayar_pinjaman')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bayar Pinjaman</p>
+                                @if ($bayar_pinjaman == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$bayar_pinjaman}}</span>
+                                @endif
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Mater Data
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{Route('program.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Program</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('anggaran.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Anggaran</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('aset.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Aset</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('role.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Role /Akses</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('keluarga.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Keluarga</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('anggota.index')}}" class="nav-link" id="DataUser">
+                                <i class="fas fa-user-plus nav-icon"></i>
+                                <p>Data User</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            @if (Route::has('password.request'))
+                            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                                {{ __('Forgot your password?') }}
+                            </a>
+                            @endif
+                        </li>
 
-                          <li class="nav-item">
-                              <a href="{{Route('program.trash')}}" class="nav-link" id="TrashProgram">
-                                  <i class="fas fa-home nav-icon"></i>
-                                  <p>Trash Program</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('anggaran.trash')}}" class="nav-link" id="TrashAnggaran">
-                                  <i class="fas fa-home nav-icon"></i>
-                                  <p>Trash Anggaran</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('pemasukan.trash')}}" class="nav-link" id="TrashAnggaran">
-                                  <i class="fas fa-home nav-icon"></i>
-                                  <p>Trash Pemasukan</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('pengajuan.trash')}}" class="nav-link" id="TrashAnggaran">
-                                  <i class="fas fa-home nav-icon"></i>
-                                  <p>Trash Pengajuan</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('pengeluaran.trash')}}" class="nav-link" id="TrashAnggaran">
-                                  <i class="fas fa-home nav-icon"></i>
-                                  <p>Trash Pengeluaran</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="{{Route('aset.trash')}}" class="nav-link" id="TrashAnggaran">
-                                  <i class="fas fa-home nav-icon"></i>
-                                  <p>Trash Aset</p>
-                              </a>
-                          </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview" id="liViewTrash">
+                    <a href="#" class="nav-link" id="ViewTrash">
+                        <i class="nav-icon fas fa-recycle"></i>
+                        <p>
+                            View Trash
 
-                      </ul>
-                  </li>
-                  <li class="nav-header">EXAMPLES</li>
-                  <li class="nav-item">
-                      <a href="pages/calendar.html" class="nav-link">
-                          <i class="nav-icon fas fa-calendar-alt"></i>
-                          <p>
-                              Calendar
-                              <span class="badge badge-info right">2</span>
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="pages/gallery.html" class="nav-link">
-                          <i class="nav-icon far fa-image"></i>
-                          <p>
-                              Gallery
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{Route('asetpinjam.index')}}" class="nav-link">
-                          <i class="nav-icon fas fa-columns"></i>
-                          <p>
-                              Pinjaman ASET
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon far fa-envelope"></i>
-                          <p>
-                              Mailbox
-                              <i class="fas fa-angle-left right"></i>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Inbox</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/mailbox/compose.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Compose</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/mailbox/read-mail.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Read</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-book"></i>
-                          <p>
-                              Pages
-                              <i class="fas fa-angle-left right"></i>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="pages/examples/invoice.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Invoice</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/profile.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Profile</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/e-commerce.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>E-commerce</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/projects.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Projects</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/project-add.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Project Add</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/project-edit.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Project Edit</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/project-detail.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Project Detail</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/contacts.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Contacts</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/faq.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>FAQ</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/contact-us.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Contact us</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon far fa-plus-square"></i>
-                          <p>
-                              Extras
-                              <i class="fas fa-angle-left right"></i>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>
-                                      Login & Register v1
-                                      <i class="fas fa-angle-left right"></i>
-                                  </p>
-                              </a>
-                              <ul class="nav nav-treeview">
-                                  <li class="nav-item">
-                                      <a href="pages/examples/login.html" class="nav-link">
-                                          <i class="far fa-circle nav-icon"></i>
-                                          <p>Login v1</p>
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a href="pages/examples/register.html" class="nav-link">
-                                          <i class="far fa-circle nav-icon"></i>
-                                          <p>Register v1</p>
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a href="pages/examples/forgot-password.html" class="nav-link">
-                                          <i class="far fa-circle nav-icon"></i>
-                                          <p>Forgot Password v1</p>
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a href="pages/examples/recover-password.html" class="nav-link">
-                                          <i class="far fa-circle nav-icon"></i>
-                                          <p>Recover Password v1</p>
-                                      </a>
-                                  </li>
-                              </ul>
-                          </li>
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>
-                                      Login & Register v2
-                                      <i class="fas fa-angle-left right"></i>
-                                  </p>
-                              </a>
-                              <ul class="nav nav-treeview">
-                                  <li class="nav-item">
-                                      <a href="pages/examples/login-v2.html" class="nav-link">
-                                          <i class="far fa-circle nav-icon"></i>
-                                          <p>Login v2</p>
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a href="pages/examples/register-v2.html" class="nav-link">
-                                          <i class="far fa-circle nav-icon"></i>
-                                          <p>Register v2</p>
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a href="pages/examples/forgot-password-v2.html" class="nav-link">
-                                          <i class="far fa-circle nav-icon"></i>
-                                          <p>Forgot Password v2</p>
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a href="pages/examples/recover-password-v2.html" class="nav-link">
-                                          <i class="far fa-circle nav-icon"></i>
-                                          <p>Recover Password v2</p>
-                                      </a>
-                                  </li>
-                              </ul>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/lockscreen.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Lockscreen</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Legacy User Menu</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/language-menu.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Language Menu</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/404.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Error 404</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/500.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Error 500</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/pace.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Pace</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/examples/blank.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Blank Page</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="starter.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Starter Page</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-search"></i>
-                          <p>
-                              Search
-                              <i class="fas fa-angle-left right"></i>
-                          </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                              <a href="pages/search/simple.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Simple Search</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a href="pages/search/enhanced.html" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Enhanced</p>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-4">
+                        <li class="nav-item">
+                            <a href="{{Route('role.trash')}}" class="nav-link" id="TrashJadwal">
+                                <i class="fas fa-calendar-alt nav-icon"></i>
+                                <p>Trash Role</p>
+                            </a>
+                        </li>
 
-                  <li class="nav-item has-treeview">
-                      <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="nav-icon fas fa-sign-out-alt"></i> &nbsp; Kaluar</a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                          @csrf
-                      </form>
+                        <li class="nav-item">
+                            <a href="{{Route('program.trash')}}" class="nav-link" id="TrashProgram">
+                                <i class="fas fa-home nav-icon"></i>
+                                <p>Trash Program</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('anggaran.trash')}}" class="nav-link" id="TrashAnggaran">
+                                <i class="fas fa-home nav-icon"></i>
+                                <p>Trash Anggaran</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('pemasukan.trash')}}" class="nav-link" id="TrashAnggaran">
+                                <i class="fas fa-home nav-icon"></i>
+                                <p>Trash Pemasukan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('pengajuan.trash')}}" class="nav-link" id="TrashAnggaran">
+                                <i class="fas fa-home nav-icon"></i>
+                                <p>Trash Pengajuan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('pengeluaran.trash')}}" class="nav-link" id="TrashAnggaran">
+                                <i class="fas fa-home nav-icon"></i>
+                                <p>Trash Pengeluaran</p>
+                            </a>
+                        </li>
 
-                  </li>
-          </nav>
-          <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-  </aside>
+                        <li class="nav-item">
+                            <a href="{{Route('aset.trash')}}" class="nav-link" id="TrashAnggaran">
+                                <i class="fas fa-home nav-icon"></i>
+                                <p>Trash Aset</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{Route('keluarga.trash')}}" class="nav-link" id="TrashAnggaran">
+                                <i class="fas fa-home nav-icon"></i>
+                                <p>Trash Keluarga</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('anggota.trash')}}" class="nav-link" id="TrashAnggaran">
+                                <i class="fas fa-home nav-icon"></i>
+                                <p>Trash user</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-header">DATA</li>
+                <li class="nav-item">
+                    <a href="pages/calendar.html" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>
+                            Calendar
+                            <span class="badge badge-info right">2</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{Route('asetpinjam.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-columns"></i>
+                        <p>
+                            Pinjaman ASET
+                        </p>
+                    </a>
+                </li>
+                @else
+                @if (Auth::user()->role == "Bendahara")
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Pengajuan
+                            @if ($pengajuan == 0)
+                            @else
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">{{$pengajuan}}</span>
+                            @endif
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-kas')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>KAS</p>
+                                @if ($bayar == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$bayar}}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-tabungan')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tabungan</p>
+                                @if ($bayar_tabungan == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$bayar_tabungan}}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-pinjaman')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pinjaman</p>
+                                @if ($pinjaman == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$pinjaman}}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-bayar_pinjaman')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bayar Pinjaman</p>
+                                @if ($bayar_pinjaman == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$bayar_pinjaman}}</span>
+                                @endif
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Program KAS
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @foreach ($data_anggaran as $data)
+                        <li class="nav-item">
+                            <a href="{{Route('anggaran.show',Crypt::encrypt($data->id))}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    {{$data->nama_anggaran}}
+                                </p>
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{Route('asetpinjam.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-columns"></i>
+                        <p>
+                            Pinjaman ASET
+                        </p>
+                    </a>
+                </li>
+
+                @endif
+                <li class="nav-item has-treeview">
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="nav-icon fas fa-sign-out-alt"></i> &nbsp; Kaluar</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+
+                </li>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

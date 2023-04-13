@@ -1,36 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+    <title>{{ config('app.name', 'Keluarga Ma Haya') }}</title>
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('layouts/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('layouts/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('layouts/plugins/toastr/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('layouts/dist/css/adminlte.min.css') }}">
+    <link rel="shrotcut icon" href="{{ asset('img/logo.jpg') }}">
+
+</head>
+
+<body class="hold-transition login-page" style="background-image: url('https://media.tenor.com/xAmcAf74YKMAAAAd/teman-surga-teman-surga-malang.gif'); background-size: 100%; background-attachment: fixed;">
+    <div class="login-box">
+        <marquee style="color: dark;">
+            <h2> <strong>Bilih kantos kasisit ati, kapancah kalengkah ucap, kajenggut kababuk catur, tawakufna nu kasuhun. Hapunten sadaya kalepatan. Wilujeng boboran siam 1444 H. Taqqobalallahu Minaa Wa Minkum.
+                </strong></h2>
+        </marquee>
+        <div class="login-logo">
+            <img src="{{ asset('img/fitri.png') }}" width="50%" alt="">
         </div>
-    </body>
+
+        <div>
+            @yield('content')
+        </div>
+
+        <footer style="color: dark;">
+            <marquee>
+                <strong>KELUARGA BESAR Alm. MA HAYA </strong>
+            </marquee>
+        </footer>
+    </div>
+
+    <!-- jQuery -->
+    <script src="{{ asset('layouts/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('layouts/plugins/toastr/toastr.min.js') }}"></script>
+    <!-- page script -->
+    @yield('script')
+
+    @error('id_card')
+    <script>
+        toastr.error("Maaf User ini tidak terdaftar sebagai Guru SMKN 1 Jenangan Ponorogo!");
+    </script>
+    @enderror
+    @error('guru')
+    <script>
+        toastr.error("Maaf Guru ini sudah terdaftar sebagai User!");
+    </script>
+    @enderror
+    @error('no_induk')
+    <script>
+        toastr.error("Maaf User ini tidak terdaftar sebagai Siswa SMKN 1 Jenangan Ponorogo!");
+    </script>
+    @enderror
+    @error('siswa')
+    <script>
+        toastr.error("Maaf Siswa ini sudah terdaftar sebagai User!");
+    </script>
+    @enderror
+    @if (session('status'))
+    <script>
+        toastr.success("{{ Session('success') }}");
+    </script>
+    @endif
+    @if (Session::has('error'))
+    <script>
+        toastr.error("{{ Session('error') }}");
+    </script>
+    @endif
+
+</body>
+
 </html>

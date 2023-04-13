@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(ProgramSeeder::class);
         $this->call(AnggaranSeeder::class);
+        $this->call(KeluargaSeeder::class);
     }
 }

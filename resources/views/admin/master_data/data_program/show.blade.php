@@ -38,6 +38,14 @@
                 <table class="table table-hover table-head-fixed" id='tabelAgendaMasuk'>
                     <p> {!! $data_program->deskripsi !!}</p>
                 </table>
+                <form action="{{Route('roleprogram.store')}}" method="POST" enctype="multipart/form-data">
+                    {{csrf_field()}}
+                    <div class="form-group">
+                        <input type="hidden" id="program" name="program" value="{{$data_program->id}}">
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Bade Ngiringan kana Program</button>
+                </form>
             </div>
         </div>
     </div><!-- /.container-fluid -->

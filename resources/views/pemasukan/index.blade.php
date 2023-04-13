@@ -71,7 +71,7 @@
                                  <a class="nav-link " id="custom-tabs-one-tabungan-tab" data-toggle="pill" href="#custom-tabs-one-tabungan" role="tab" aria-controls="custom-tabs-one-tabungan" aria-selected="false">Tabungan</a>
                              </li>
                              @endif
-                             @if(Auth::user()->role == "Admin" || Auth::user()->role == "Sekertaris" || Auth::user()->role == "Bendahara" || Auth::user()->role == "Ketua" || Auth::user()->role == "Ketua")
+                             @if(Auth::user()->role == "Admin" || Auth::user()->role == "Sekertaris" || Auth::user()->role == "Bendahara" || Auth::user()->role == "Ketua" || Auth::user()->role == "Penasehat")
                              <li class="nav-item">
                                  <a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="false">Semua</a>
                              </li>

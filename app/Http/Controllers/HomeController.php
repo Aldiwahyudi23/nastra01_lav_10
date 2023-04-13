@@ -161,4 +161,10 @@ class HomeController extends Controller
         Auth::user()->update(['device_token' => $request->token]);
         return response()->json(['token saved successfully.']);
     }
+
+    public function peraturan()
+    {
+        $keluarga = User::find(Auth::user()->id);
+        return view('peraturan.index', compact('keluarga'));
+    }
 }

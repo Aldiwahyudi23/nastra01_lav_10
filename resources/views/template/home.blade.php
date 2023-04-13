@@ -39,12 +39,30 @@
         <!-- Main Sidebar Container -->
         @include('template.sidebar')
 
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            @if(Auth::user()->is_active == 0)
+
+            <body class="justify-content-center">
+                <center>
+                    <h1>Hapunten !</h1>
+                    <img src="https://c.tenor.com/Z8ezUHZzcLoAAAAC/love.gif" alt="">
+                    <h1>Akun Anjeun Teu Aktif</h1>
+                    <h3>Kanggo ngaktifkeun deui, mangga chat wae ka Official </h3>
+                    <a id="btn_mau" href="http://api.whatsapp.com/send?phone=6283825740395&text=Punten A Admin, Akun Abdi teu acan AKTIF . Hoyong di aktifkeun nya, Nuhun">Chat Official</a>
+                    <button id="btn_gamau" onclick="gamau(this)" style="position: relative;">Gamau</button>
+                </center>
+            </body>
+
+
+            @else
             @include('template.notifikasi')
             <!-- Main content -->
             @yield('content')
             <!-- /.content -->
+
+            @endif
         </div>
         <!-- /.content-wrapper -->
 
@@ -62,6 +80,16 @@
 
 
     <!-- REQUIRED SCRIPTS -->
+    <!-- Script jika tidak aktif -->
+    <script>
+        function gamau(id) {
+            var mau = document.getElementById("btn_mau");
+            var i = Math.floor(Math.random() * 150) + 1;
+            var j = Math.floor(Math.random() * 50) + mau.offsetHeight;
+            id.style.left = i + "px";
+            id.style.top = j + "px";
+        }
+    </script>
     <!-- jQuery -->
     <script src="{{asset('layouts/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap -->

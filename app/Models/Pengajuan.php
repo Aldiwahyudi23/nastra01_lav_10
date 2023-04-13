@@ -15,4 +15,13 @@ class Pengajuan extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function pengeluaran()
+    {
+        return $this->belongsTo(Pengeluaran::class);
+    }
+    public function pemasukan()
+    {
+        return $this->belongsTo(Pemasukan::class);
+    }
 }

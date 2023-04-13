@@ -253,7 +253,7 @@
                                     </b>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <a href="/anggaran/1/detail" class="product-title">Jumlah Dana Darurat</a>
+                                    <a href="{{route('anggaran.show',Crypt::encrypt(1))}}" class="product-title">Jumlah Dana Darurat</a>
                                     <h5>{{ "Rp " . number_format($total_dana_darurat - $total_pengeluaran_darurat ,2,',','.') }}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
@@ -262,7 +262,7 @@
                                     <hr>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <a href="/anggaran/2/detail" class="product-title">Jumlah Dana Amal</a>
+                                    <a href="{{route('anggaran.show',Crypt::encrypt(2))}}" class="product-title">Jumlah Dana Amal</a>
                                     <h5>{{ "Rp " . number_format($total_dana_amal - $total_pengeluaran_amal,2,',','.') }}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
@@ -271,7 +271,7 @@
                                     <hr>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <a href="/anggaran/4/detail" class="product-title">Jumlah dana KAS</a>
+                                    <a href="{{route('anggaran.show',Crypt::encrypt(6))}}" class="product-title">Jumlah dana KAS</a>
                                     <h5>{{"Rp" . number_format($total_dana_kas - $total_pengeluaran_lain,2,',','.')}}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
@@ -280,7 +280,7 @@
                                     <hr>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <a href="/anggaran/3/detail" class="product-title">Jumlah Dana Pinjam</a>
+                                    <a href="{{Route('anggaran.show',Crypt::encrypt(3))}}">Jumlah Dana Pinjam</a>
                                     <h5>{{"Rp" . number_format($total_dana_pinjam -  $total_pengeluaran_pinjaman,2,',','.')}}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
@@ -484,13 +484,7 @@
                                     <td>{{$data->kondisi}}</td>
                                     <td>{!!$data->deskripsi!!}</td>
                                     <td>
-                                        <form action="{{route('aset.destroy',Crypt::encrypt($data->id))}}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <a href="{{route('aset.show',Crypt::encrypt($data->id))}}" class=""><i class="nav-icon fas fa-book"></i></a>
-                                            <a href="{{route('aset.edit',Crypt::encrypt($data->id))}}" class=""><i class="nav-icon fas fa-pencil-alt"></i></a>
-                                            <button class="btn btn-link btn-sm mt-2"><i class="nav-icon fas fa-trash-alt" onclick="return confirm('Leres bade ngahapus data anu namina {{$data->nama}}  ?')"></i> </button>
-                                        </form>
+                                        <a href="{{route('aset.show',Crypt::encrypt($data->id))}}" class=""><i class="nav-icon fas fa-book"></i></a>
                                     </td>
 
 

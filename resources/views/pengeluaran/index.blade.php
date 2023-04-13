@@ -225,7 +225,7 @@
                          <li class="nav-item">
                              <a class="nav-link " id="custom-tabs-one-amal-tab" data-toggle="pill" href="#custom-tabs-one-amal" role="tab" aria-controls="custom-tabs-one-amal" aria-selected="false">Amal</a>
                          </li>
-                         @if(Auth::user()->role == "Admin" || Auth::user()->role == "Sekertaris" || Auth::user()->role == "Bendahara" || Auth::user()->role == "Ketua" || Auth::user()->role == "Ketua")
+                         @if(Auth::user()->role == "Admin" || Auth::user()->role == "Sekertaris" || Auth::user()->role == "Bendahara" || Auth::user()->role == "Ketua" || Auth::user()->role == "Penasehat")
                          <li class="nav-item">
                              <a class="nav-link" id="custom-tabs-one-pinjam-tab" data-toggle="pill" href="#custom-tabs-one-pinjam" role="tab" aria-controls="custom-tabs-one-pinjam" aria-selected="false">Pinjam</a>
                          </li>
