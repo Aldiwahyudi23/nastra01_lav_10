@@ -123,7 +123,7 @@ Route::post('/pengaturan/ubah-email', [KeluargaController::class, 'ubah_email'])
 Route::get('/pengaturan/password', [KeluargaController::class, 'edit_password'])->middleware(['auth', 'verified'])->name('pengaturan.password');
 Route::post('/pengaturan/ubah-password', [KeluargaController::class, 'ubah_password'])->middleware(['auth', 'verified'])->name('pengaturan.ubah-password');
 //Peraturan
-Route::get('/peraturan', [HomeController::class, 'peraturan'])->middleware(['auth', 'verified']);
+Route::get('/peraturan', [HomeController::class, 'peraturan'])->middleware(['auth']);
 Route::resource('roleprogram', RoleProgramController::class)->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';
