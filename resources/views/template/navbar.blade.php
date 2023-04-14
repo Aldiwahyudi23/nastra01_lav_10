@@ -106,7 +106,6 @@
                 </a>
                 @endforeach
                 <div class="dropdown-divider"></div>
-                <a href="{{Route('table-pengajuan-pinjaman')}}" class="dropdown-item dropdown-footer">See All Messages</a>
             </div>
         </li>
         @endif

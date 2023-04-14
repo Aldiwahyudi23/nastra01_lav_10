@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Pemberitahuan;
 use App\Models\Pengeluaran;
 use App\Models\User;
+use App\Notifications\EmailNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
@@ -71,6 +73,32 @@ class PengajuanController extends Controller
             $data->sekertaris = $request->sekertaris;
             $data->lama = $request->lama;
         }
+
+        $bendahara = User::find(4);
+        $seker = User::where('role', 'Sekertaris')->get();
+        $penasehat = User::find(6);
+        $user = User::find(Auth::user()->id);
+        $nama_pengaju = User::find($request->anggota_id);
+
+        $project = [
+            'greeting' => 'Sampurasun',
+            'body' => 'Pengajuan nuju di proses, Antosan sampe pengurus ngaKonfirmasi.',
+            'nama' => $nama_pengaju->name,
+            'kategori' => $request->kategori,
+            'pembayaran' => $request->pembayaran,
+            'jumlah' => $request->jumlah,
+            'keterangan' => $request->keterangan,
+            'tanggal' => $request->tanggal,
+            'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
+            'actionText' => 'Tinggal',
+            'actionURL' => url('/'),
+            'id' => 57
+        ];
+
+        $nama_pengaju->notify(new EmailNotification($project));
+        $bendahara->notify(new EmailNotification($project));
+        $penasehat->notify(new EmailNotification($project));
+
 
         $data->save();
 

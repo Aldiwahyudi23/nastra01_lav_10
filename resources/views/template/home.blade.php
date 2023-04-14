@@ -210,7 +210,7 @@
 
     <!-- scrip Untuk elemen Button -->
     <script>
-        function tombol() {
+        function tombol_pinjam() {
             if (document.getElementById("myBtn_pinjam").hidden = true) {
                 // membuat objek elemen
                 // alert("Nuju di proses...");
@@ -254,17 +254,19 @@
     </script>
 
     <script>
-        function tombol() {
-            if (document.getElementById("myBtn_kas").hidden = true) {
+        function tombol_kas() {
+            if (document.getElementById("myBtn_k").hidden = true) {
                 // membuat objek elemen
                 // alert("Nuju di proses...");
                 var hasil = document.getElementById("tombol_proses");
                 hasil.innerHTML = "Nuju di proses ...";
             }
         }
+    </script>
 
+    <script>
         let jumlah_kas = document.getElementById("jumlah");
-        let button_kas = document.getElementById("myBtn_kas");
+        let button_kas = document.getElementById("myBtn_k");
         button_kas.disabled = true;
         jumlah_kas.addEventListener("change", stateHandle);
 
@@ -279,7 +281,7 @@
     <!-- // setor Tunai -->
 
     <script>
-        function tombol() {
+        function tombol_setor() {
             if (document.getElementById("myBtn_setor").hidden = true) {
                 // membuat objek elemen
                 // alert("Nuju di proses...");

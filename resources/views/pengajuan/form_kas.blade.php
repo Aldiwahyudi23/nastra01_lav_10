@@ -42,7 +42,7 @@
             @enderror
         </div>
         <hr>
-        <button onclick="tombol()" id="myBtn_kas" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> YUUU BAYAR</button>
+        <button onclick="tombol_kas()" id="myBtn_k" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> YUUU BAYAR</button>
         <div id="tombol_proses"></div>
     </form>
 </div>

@@ -68,7 +68,7 @@
                                              @enderror
                                          </div>
                                          <hr>
-                                         <button onclick="tombol()" id="myBtn_setor" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> YUUU BAYAR</button>
+                                         <button onclick="tombol_setor()" id="myBtn_setor" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> YUUU BAYAR</button>
                                          <div id="tombol_proses"></div>
                                      </form>
                                  </div>
