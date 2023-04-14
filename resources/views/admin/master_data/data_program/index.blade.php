@@ -26,7 +26,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label for="deskripsi">Deskripsi</label>
                                 <textarea name="deskripsi" class="textarea form-control bg-light @error('deskripsi') is-invalid @enderror" id="summernote" rows="6" value="{{ old('deskripsi') }}"></textarea>
                                 @error('deskripsi')
@@ -35,9 +35,9 @@
                                 </div>
                                 @enderror
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group">
                                 <label for="SnK">S&K</label>
-                                <textarea name="SnK" class="textarea form-control bg-light @error('SnK') is-invalid @enderror" id="summernote" rows="6" value="{{ old('SnK') }}"></textarea>
+                                <textarea name="SnK" class="textarea form-control bg-light @error('SnK') is-invalid @enderror" id="summernote1" rows="6" value="{{ old('SnK') }}"></textarea>
                                 @error('SnK')
                                 <div class="invalid-feedback">
                                     <strong>{{ $message }}</strong>

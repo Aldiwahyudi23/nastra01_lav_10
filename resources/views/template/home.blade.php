@@ -28,9 +28,9 @@
     <div class="wrapper">
 
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
+        <!-- <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__wobble" src="{{asset('img/logo.jpg')}}" alt="AdminLTELogo" height="60" width="60">
-        </div>
+        </div> -->
 
         <!-- Navbar -->
         @include('template.navbar')
@@ -174,6 +174,18 @@
         $(function() {
             // Summernote
             $('#summernote').summernote()
+
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+            });
+        })
+    </script>
+    <script>
+        $(function() {
+            // Summernote
+            $('#summernote1').summernote()
 
             // CodeMirror
             CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {

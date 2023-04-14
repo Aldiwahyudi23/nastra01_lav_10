@@ -36,7 +36,10 @@
 
                 </table>
                 <table class="table table-hover table-head-fixed" id='tabelAgendaMasuk'>
+                    <hr>
                     <p> {!! $data_program->deskripsi !!}</p>
+                    <hr>
+                    <p>{!! $data_program->SnK!!}</p>
                 </table>
                 <form action="{{Route('roleprogram.store')}}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
