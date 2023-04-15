@@ -84,7 +84,7 @@ $tanggal = Carbon::now();
             @enderror
         </div>
         <hr>
-        <button onclick="tombol()" id="myBtn" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> YUUU BAYAR</button>
+        <button onclick="tombol()" id="myBtn_k" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> YUUU BAYAR</button>
         <div id="tombol_proses"></div>
 
     </form>

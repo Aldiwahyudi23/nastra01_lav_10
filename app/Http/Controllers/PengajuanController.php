@@ -80,14 +80,15 @@ class PengajuanController extends Controller
         $penasehat = User::where('role', 'Penasehat')->get();
         $user = User::find(Auth::user()->id);
         $nama_pengaju = User::find($request->anggota_id);
+        $nominal = 'Rp' . number_format($request->jumlah, 2, ',', '.');
 
         $project = [
-            'greeting' => 'Sampurasun',
+            'greeting' => 'Sampurasun ' . $nama_pengaju->name . '',
             'body' => 'Pengajuan nuju di proses, Antosan sampe pengurus ngaKonfirmasi.',
             'nama' => $nama_pengaju->name,
             'kategori' => $request->kategori,
             'pembayaran' => $request->pembayaran,
-            'jumlah' => $request->jumlah,
+            'jumlah' => $nominal,
             'tanggal' => $tanggal,
             'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
             'actionText' => 'Tinggal',
@@ -100,7 +101,7 @@ class PengajuanController extends Controller
             'nama' => $nama_pengaju->name,
             'kategori' => $request->kategori,
             'pembayaran' => $request->pembayaran,
-            'jumlah' => $request->jumlah,
+            'jumlah' => $nominal,
             'tanggal' => $tanggal,
             'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
             'actionText' => 'Cek di web',
@@ -114,7 +115,7 @@ class PengajuanController extends Controller
                 'nama' => $nama_pengaju->name,
                 'kategori' => $request->kategori,
                 'pembayaran' => $request->pembayaran,
-                'jumlah' => $request->jumlah,
+                'jumlah' => $nominal,
                 'tanggal' => $tanggal,
                 'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
                 'actionText' => 'Cek di web',
@@ -229,6 +230,61 @@ class PengajuanController extends Controller
             $data_pengajuan->keterangan = $request->sekertaris;
             $data_pengajuan->keterangan = $request->ketua;
         }
+        // Kanggo send notifikasi
+        $tanggal = Carbon::now();
+        $bendahara = User::where('role', 'Bendahara')->get();
+        $seker = User::where('role', 'Admin')->get();
+        $penasehat = User::where('role', 'Penasehat')->get();
+        $user = User::find(Auth::user()->id);
+        $nama_pengaju = User::find($request->anggota_id);
+        $nominal = 'Rp ' . number_format($request->jumlah, 2, ',', '.');
+
+        $project = [
+            'greeting' => 'Sampurasun ' . $nama_pengaju->name . '',
+            'body' => 'Pengajuan Atos di edit kantun ngantosan nuju di proses, Antosan sampe pengurus ngaKonfirmasi.',
+            'nama' => $nama_pengaju->name,
+            'kategori' => $request->kategori,
+            'pembayaran' => $request->pembayaran,
+            'jumlah' => $nominal,
+            'tanggal' => $tanggal,
+            'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
+            'actionText' => 'Tinggal',
+            'actionURL' => url('/'),
+            'id' => 57
+        ];
+        $pengurus = [
+            'greeting' => 'HI DULLURRR KABEH',
+            'body' => 'Aya Pengajuan anu di edit, dengan Data baru saperti DATA di handap, Mangga Konfirmasi heula, leres teu aya nu masuk atau di titipkeun.',
+            'nama' => $nama_pengaju->name,
+            'kategori' => $request->kategori,
+            'pembayaran' => $request->pembayaran,
+            'jumlah' => $nominal,
+            'tanggal' => $tanggal,
+            'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
+            'actionText' => 'Cek di web',
+            'actionURL' => url('/'),
+            'id' => 57
+        ];
+        if ($request->pembayaran == "Transfer") {
+            $transfer = [
+                'greeting' => 'HI DULLURRR',
+                'body' => 'Aya Pengajuan yeuhhhh nu di EDIT trus Transfer, Mangga Konfirmasi heula cek di M-banking, leres teu aya nu masuk cek di mutasi trus laporkeun di GROUP WA.',
+                'nama' => $nama_pengaju->name,
+                'kategori' => $request->kategori,
+                'pembayaran' => $request->pembayaran,
+                'jumlah' => $nominal,
+                'tanggal' => $tanggal,
+                'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
+                'actionText' => 'Cek di web',
+                'actionURL' => url('/'),
+                'id' => 57
+            ];
+            Notification::sendnow($penasehat, new EmailNotification($transfer));
+        }
+
+        Notification::sendnow($nama_pengaju, new EmailNotification($project));
+        Notification::sendnow($seker, new EmailNotification($pengurus));
+        Notification::sendnow($bendahara, new EmailNotification($pengurus));
 
         $data_pengajuan->update();
 
@@ -251,6 +307,27 @@ class PengajuanController extends Controller
             );
             $data_pengajuan = Pengajuan::Find($id);
             $data_pengajuan->bendahara = $request->bendahara;
+            //Kanggo EMAIL
+            $ketua = User::where('role', 'Ketua')->get();
+            $sekertaris = User::where('role', 'Sekertaris')->get();
+            $nama_pengaju = User::find($request->anggota_id);
+
+            $project = [
+                'greeting' => 'Laporan Ti Bendahara Tentang Pinjaman ',
+                'body' => 'Bendahara Atos ngisi Laporan sesuai Isi atau pendapat na Mangga Tinjau Laporanna sareng laporan ti Sekertaris.',
+                'nama' => $nama_pengaju->name,
+                'kategori' => $request->kategori,
+                'pembayaran' => 'Pami Atos Aya keputusan Mangga Konfirmasi kanu pegang artosna',
+                'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
+                'tanggal' => Carbon::now(),
+                'thanks' => 'Hatur Nuhun Perhatosanna Mangga Cek Detail na di web',
+                'actionText' => 'Cek Laporan Bendahara',
+                'actionURL' => url('/'),
+                'id' => 57
+            ];
+            Notification::sendnow($ketua, new EmailNotification($project));
+            Notification::sendnow($sekertaris, new EmailNotification($project));
+
             $data_pengajuan->update();
         }
         if (Auth::user()->role == "Sekertaris") {
@@ -264,23 +341,83 @@ class PengajuanController extends Controller
             );
             $data_pengajuan = Pengajuan::Find($id);
             $data_pengajuan->sekertaris = $request->sekertaris;
+            //Kanggo EMAIL
+            $ketua = User::where('role', 'Ketua')->get();
+            $nama_pengaju = User::find($request->anggota_id);
+
+            $project = [
+                'greeting' => 'Laporan Ti Sekertaris Tentang Pinjaman ',
+                'body' => 'Sekertaris Atos ngisi Laporan sesuai Isi atau pendapat na Mangga Tinjau Laporanna sareng laporan ti Sekertaris.',
+                'nama' => $nama_pengaju->name,
+                'kategori' => $request->kategori,
+                'pembayaran' => 'Pami Atos Aya keputusan Mangga Konfirmasi kanu pegang artosna',
+                'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
+                'tanggal' => Carbon::now(),
+                'thanks' => 'Hatur Nuhun Perhatosanna Mangga Cek Detail na di web',
+                'actionText' => 'Cek Laporan Sekertaris',
+                'actionURL' => url('/'),
+                'id' => 57
+            ];
+            Notification::sendnow($ketua, new EmailNotification($project));
             $data_pengajuan->update();
         }
         if (Auth::user()->role == "Ketua") {
             $request->validate(
                 [
+                    'sekertaris' => 'required',
                     'ketua' => 'required',
                     'status' => 'required',
+                    'bendahara' => 'required',
                 ],
                 [
                     'ketua.required' => 'Laporan kedah di isi',
                     'status.required' => 'Konfirmasi kedah di isi kedah di isi',
+                    'sekertaris.required' => 'Laporan Sekertaris kedah di isi heula',
+                    'bendahara.required' => 'Laporan Bendahara kedah di isi heula',
                 ]
             );
             if ($request->status == "Tunda") {
                 $data_pengajuan = Pengajuan::Find($id);
                 $data_pengajuan->ketua = $request->ketua;
                 $data_pengajuan->status = $request->status;
+                //email
+                //Kanggo EMAIL
+                $bendahara = User::where('role', 'Bendahara')->get();
+                $ketua = User::where('role', 'Ketua')->get();
+                $sekertaris = User::where('role', 'Sekertaris')->get();
+                $admin = User::where('role', 'Admin')->get();
+                $nama_pengaju = User::find($request->anggota_id);
+                $project = [
+                    'greeting' => 'Bissmilah',
+                    'body' => 'Hapunten Pisan Pengajuan Pinjaman sesuai Data di handap teu acan tiasa di setujui, di tunda heula kin pami atos cukup atawa tos memadai bade konfirmasi deui, alasanna bisa di cek di web.',
+                    'nama' => $nama_pengaju->name,
+                    'kategori' => $request->kategori,
+                    'pembayaran' => 'Jangan Berkecil Hati, minta pengertiannya Dana Pinjam masih awal ',
+                    'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
+                    'tanggal' => Carbon::now(),
+                    'thanks' => 'Bissmilah Lancar',
+                    'actionText' => 'Cek Alasan',
+                    'actionURL' => url('/'),
+                    'id' => 57
+                ];
+                $pengurus = [
+                    'greeting' => 'Pengajuan Pinjaman Di Tunda heula ku ' . Auth::user()->name . ' ',
+                    'body' => 'Alasan Penundaan bisa di cek di web. Keputusan atas tinjauan tina Laporan Bendahara sareng sekertaris, Data Pengajuan sebagai berikut :.',
+                    'nama' => $nama_pengaju->name,
+                    'kategori' => $request->kategori,
+                    'pembayaran' => 'Selalu Pantau, Jika data memadai bisa di kordinasikeun deui ',
+                    'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
+                    'tanggal' => Carbon::now(),
+                    'thanks' => 'Bissmilah Lancar',
+                    'actionText' => 'Cek Alasan',
+                    'actionURL' => url('/'),
+                    'id' => 57
+                ];
+                Notification::sendnow($nama_pengaju, new EmailNotification($project));
+                Notification::sendnow($bendahara, new EmailNotification($pengurus));
+                Notification::sendnow($sekertaris, new EmailNotification($pengurus));
+                Notification::sendnow($admin, new EmailNotification($pengurus));
+
                 $data_pengajuan->update();
             } elseif ($request->status == "Nunggak") {
 
@@ -294,13 +431,50 @@ class PengajuanController extends Controller
                 $data_pengajuan->sekertaris = $request->sekertaris;
                 $data_pengajuan->ketua = $request->ketua;
                 $data_pengajuan->status = $request->status;
+                //Kanggo EMAIL
+                $bendahara = User::where('role', 'Bendahara')->get();
+                $ketua = User::where('role', 'Ketua')->get();
+                $penasehat = User::where('role', 'Penasehat')->get();
+                $admin = User::where('role', 'Admin')->get();
+                $nama_pengaju = User::find($request->anggota_id);
 
+                $project = [
+                    'greeting' => 'Alhamdullilahhh Pengajuan Pinjaman Atos di setujui',
+                    'body' => 'Bismillah, Alhamdulilah Pengajuan Pinjaman Atos di setujui, Kantun Ngantosan Artos na di pasihkeun sesuai keterangan. Di usahakeun data nu di ajukeun leres nya, bilih lepat',
+                    'nama' => 'Hiiiii ' . $nama_pengaju->name . ' Di antos nya nuju di proses',
+                    'kategori' => 'Tanggung jawab sareng jujur nya supados acara atau programna berjalan lancar.',
+                    'pembayaran' => 'Nominal Anu di Ajukeun sebesar :',
+                    'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
+                    'tanggal' => Carbon::now(),
+                    'thanks' => 'Hatur Nuhun Perhatosanna Mangga Cek Detail na di web',
+                    'actionText' => 'Cek Di WEB',
+                    'actionURL' => url('/'),
+                    'id' => 57
+                ];
+                $pengurus = [
+                    'greeting' => 'Pengajuan Atos di Setujui ku ' . Auth::user()->name . ' ',
+                    'body' => 'Pengajuan Pinjaman sesuai Data di handap atos di setujui, Mangga Kanu bersangkutan kantun pasihkeun artosna sesuai ketarangan.',
+                    'nama' => $nama_pengaju->name,
+                    'kategori' => $request->kategori,
+                    'pembayaran' => 'Mangga Pasihkeun sesuai keterangan, cek deui sing detail pami di Tf',
+                    'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
+                    'tanggal' => Carbon::now(),
+                    'thanks' => 'Bissmilah Lancar',
+                    'actionText' => 'Cek Data',
+                    'actionURL' => url('/'),
+                    'id' => 57
+                ];
+
+                Notification::sendnow($nama_pengaju, new EmailNotification($project));
+                Notification::sendnow($bendahara, new EmailNotification($pengurus));
+                Notification::sendnow($penasehat, new EmailNotification($pengurus));
+                Notification::sendnow($admin, new EmailNotification($pengurus));
+
+                $data_pengajuan->save();
                 if ($request->pengajuan_id) {
                     $pengajuan = Pengajuan::find($request->pengajuan_id);
                     $pengajuan->delete();
                 }
-
-                $data_pengajuan->save();
 
                 return redirect('pengajuans/pinjam')->with('sukses', 'Pengajuan Pinjaman atos di setujui nuhun ');
             }

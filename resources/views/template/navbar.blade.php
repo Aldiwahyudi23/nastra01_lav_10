@@ -51,27 +51,31 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 @foreach( $pengajuan as $data)
-                <a href="{{Route('pengajuan.show',Crypt::encrypt($data->id))}}" class="dropdown-item">
-                    <!-- Message Start -->
-                    <div class="media">
-                        <?php
-                        $user = User::find($data->anggota_id)
-                        ?>
-                        <img src="{{ asset($user->foto) }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                {{$data->anggota->name}}
-                                <span class="float-right text-sm text-danger">{{$data->status}}</i></span>
-                            </h3>
-                            <p class="text-sm">{{$data->kategori}} {{ "Rp " . number_format($data->jumlah,2,',','.') }} </p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</p>
+                @if ($data->kategori == "Pinjaman")
+                <a href="{{Route('pengajuan.laporan',Crypt::encrypt($data->id))}}" class="dropdown-item">
+                    @else
+                    <a href="{{Route('pengajuan.show',Crypt::encrypt($data->id))}}" class="dropdown-item">
+                        @endif
+                        <!-- Message Start -->
+                        <div class="media">
+                            <?php
+                            $user = User::find($data->anggota_id)
+                            ?>
+                            <img src="{{ asset($user->foto) }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                            <div class="media-body">
+                                <h3 class="dropdown-item-title">
+                                    {{$data->anggota->name}}
+                                    <span class="float-right text-sm text-danger">{{$data->status}}</i></span>
+                                </h3>
+                                <p class="text-sm">{{$data->kategori}} {{ "Rp " . number_format($data->jumlah,2,',','.') }} </p>
+                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Message End -->
-                </a>
-                @endforeach
-                <div class="dropdown-divider"></div>
-                <a href="{{Route('table-pengajuan-kas')}}" class="dropdown-item dropdown-footer">See All Messages</a>
+                        <!-- Message End -->
+                    </a>
+                    @endforeach
+                    <div class="dropdown-divider"></div>
+                    <a href="{{Route('table-pengajuan-kas')}}" class="dropdown-item dropdown-footer">See All Messages</a>
             </div>
         </li>
         @endif

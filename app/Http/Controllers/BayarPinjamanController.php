@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Pengajuan;
 use App\Models\Pengeluaran;
 use App\Models\User;
+use App\Notifications\EmailNotification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -68,6 +70,44 @@ class BayarPinjamanController extends Controller
         if ($request->foto1) {
             $data_pemasukan->foto          = $request->foto1;
         }
+        // Kanggo send notifikasi
+        $ketua = User::where('role', 'Ketua')->get();
+        $seker = User::where('role', 'Admin')->get();
+        $penasehat = User::where('role', 'Penasehat')->get();
+        $user = User::find(Auth::user()->id);
+        $nama_pengaju = User::find($request->anggota_id);
+
+        $project = [
+            'greeting' => 'Alhamdullilah',
+            'body' => 'Pengajuan Pembayaran Pinjaman Atos di Konfirmasi ku ' . $user->name . ' Sesuai data nu di handap, Mangga cek deui nya bilih aya nu lepat',
+            'nama' => $nama_pengaju->name,
+            'kategori' => $request->kategori,
+            'pembayaran' => $request->pembayaran,
+            'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
+            'tanggal' => $request->tanggal,
+            'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
+            'actionText' => 'Tinggal',
+            'actionURL' => url('/'),
+            'id' => 57
+        ];
+        $pengurus = [
+            'greeting' => 'HI DULLURRR',
+            'body' => 'Aya Data Bayar Pinjaman Nu Masuk Atos di Konfirmasi ku ' . $user->name . ' Sesuai data nu di handap, Mangga cek deui nya bilih aya nu lepat',
+            'nama' => $nama_pengaju->name,
+            'kategori' => $request->kategori,
+            'pembayaran' => $request->pembayaran,
+            'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
+            'tanggal' => $request->tanggal,
+            'thanks' => 'Bismillah Semoga lancar jaya ahhhh... gas',
+            'actionText' => 'Cek di web',
+            'actionURL' => url('/'),
+            'id' => 57
+        ];
+
+        Notification::sendnow($nama_pengaju, new EmailNotification($project));
+        Notification::sendnow($seker, new EmailNotification($pengurus));
+        Notification::sendnow($ketua, new EmailNotification($pengurus));
+
         $data_pemasukan->save();
         //jika pembayaran Lunas Keterangan dina data pengeluaran berubah
         // Sekalian Edit pengeluaran

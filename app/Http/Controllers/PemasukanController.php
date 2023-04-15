@@ -112,11 +112,11 @@ class PemasukanController extends Controller
 
         $project = [
             'greeting' => 'Alhamdullilah',
-            'body' => 'Pengajuan Atos di Konfirmasi, Sesuai data nu di handap, Mangga Cek deui nya bilih aya nu lepat',
+            'body' => 'Pengajuan Atos di Konfirmasi ku ' . $user->name . ' Sesuai data nu di handap, Mangga cek deui nya bilih aya nu lepat',
             'nama' => $nama_pengaju->name,
             'kategori' => $request->kategori,
             'pembayaran' => $request->pembayaran,
-            'jumlah' => $request->jumlah,
+            'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
             'tanggal' => $request->tanggal,
             'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
             'actionText' => 'Tinggal',
@@ -125,11 +125,11 @@ class PemasukanController extends Controller
         ];
         $pengurus = [
             'greeting' => 'HI DULLURRR',
-            'body' => 'Pengajuan Atos di Konfirmasi. Sesuai data nu di handap, Mangga cek deui nya bilih aya nu lepat',
+            'body' => 'Aya Data Nu Masuk Atos di Konfirmasi ku ' . $user->name . ' Sesuai data nu di handap, Mangga cek deui nya bilih aya nu lepat',
             'nama' => $nama_pengaju->name,
             'kategori' => $request->kategori,
             'pembayaran' => $request->pembayaran,
-            'jumlah' => $request->jumlah,
+            'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
             'tanggal' => $request->tanggal,
             'thanks' => 'Bismillah Semoga lancar jaya ahhhh... gas',
             'actionText' => 'Cek di web',

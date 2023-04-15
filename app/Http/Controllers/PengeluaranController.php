@@ -10,6 +10,8 @@ use App\Models\Pengajuan;
 use App\Models\Program;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Notifications\EmailNotification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -108,6 +110,26 @@ class PengeluaranController extends Controller
         $data_pengeluaran->anggota_id = Auth::user()->id;
         $data_pengeluaran->alasan = $request->keterangan;
         $data_pengeluaran->tanggal = Carbon::now();
+
+        // Kanggo send notifikasi
+        $all = User::all();
+        $anggaran = Anggaran::find($request->anggaran_id);
+
+        $project = [
+            'greeting' => 'Bissmillah',
+            'body' => 'Nglaporkeun Pengeluaran KAS seseuai DATA di Handap anu di Input ku ' . Auth::user()->name . ' Mangga cek deui, kedah selalu ngecek kana data',
+            'nama' => 'Di Input ku ' . Auth::user()->name,
+            'kategori' => $anggaran->nama_anggaran,
+            'pembayaran' => 'Jumlah Nu di Kaluarkeun',
+            'jumlah' => 'Rp ' . number_format($request->jumlah, 2, ',', '.'),
+            'tanggal' => Carbon::now(),
+            'thanks' => 'Laporan sesuai data nu tercantum, Hatur nuhun kana perhatosanna',
+            'actionText' => 'cek kanggo ningal secara detail',
+            'actionURL' => url('/'),
+            'id' => 57
+        ];
+
+        Notification::sendnow($all, new EmailNotification($project));
         $data_pengeluaran->save();
 
         return redirect()->back()->with('sukses', 'Dana Anggaran anu di input atos masuk data, mangga manpaatkeun anggaranna ');

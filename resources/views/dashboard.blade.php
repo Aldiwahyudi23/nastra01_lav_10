@@ -307,7 +307,7 @@
                                                 <tbody>
                                                     @foreach($data_pengajuan_baru as $data)
                                                     <tr>
-                                                        <td><a href="pages/examples/invoice.html">PE_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
+                                                        <td><a href="">PE_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
                                                         <td>{{$data->kategori}}</td>
                                                         @if ($data->status == "Tunda")
                                                         <td><span class="badge badge-warning">{{$data->status}}</span></td>
@@ -319,7 +319,7 @@
                                                     @endforeach
                                                     @foreach($data_pemasukan_baru as $data)
                                                     <tr>
-                                                        <td><a href="pages/examples/invoice.html">IN_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
+                                                        <td><a href="">IN_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
                                                         <td>{{$data->kategori}}</td>
                                                         <td><span class="badge badge-success">Disetujui</span></td>
                                                         <td>{{ "Rp " . number_format($data->jumlah,2,',','.') }}</td>
@@ -327,7 +327,7 @@
                                                     @endforeach
                                                     @foreach($data_pengeluaran_baru as $data)
                                                     <tr>
-                                                        <td><a href="pages/examples/invoice.html">EN_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
+                                                        <td><a href="{{Route('pengeluaran.show',Crypt::encrypt($data->id))}}">EX_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
                                                         <td>{{$data->anggaran->nama_anggaran}}</td>
                                                         <td><span class="badge badge-success">Disetujui</span></td>
                                                         <td>{{ "Rp " . number_format($data->jumlah,2,',','.') }}</td>

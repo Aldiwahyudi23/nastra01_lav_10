@@ -88,7 +88,7 @@
                         <!-- Hanya Akses Admin, bendahara, dan Sekertaris -->
                         @if(Auth::user()->role == "Admin" || Auth::user()->role == "Sekertaris" || Auth::user()->role == "Bendahara")
                         <!-- Jika data Tabungan DAN kas -->
-                        @if( $data_pengajuan->kategori == 'Tabungan' || $data_pengajuan->kategori == 'Kas' || $data_pengajuan->kategori == 'Pinjaman')
+                        @if( $data_pengajuan->kategori == 'Tabungan' || $data_pengajuan->kategori == 'Kas' )
                         <form action="{{Route('pemasukan.store')}}" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <button onclick="tombol()" id="myBtn" type="submit" class="btn btn-primary btn-sm"><i class="fas fa-send"></i> KONFIRMASI</button>
