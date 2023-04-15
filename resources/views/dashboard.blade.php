@@ -349,7 +349,7 @@
                         <div class="row">
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
-                                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> {{ $total_pengeluaran_lain / $total_dana_kas  *100/100}}%</span>
+                                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 0%</span>
                                     <h5 class="description-header">{{"Rp" . number_format(  $total_dana_kas - $total_pengeluaran_lain,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO KAS</span>
                                 </div>
