@@ -74,7 +74,9 @@
                                             @method('delete')
                                             <a href="{{route('role.show',Crypt::encrypt($data->id))}}" class=""><i class="nav-icon fas fa-book"></i></a>
                                             <a href="{{route('role.edit',Crypt::encrypt($data->id))}}" class=""><i class="nav-icon fas fa-pencil-alt"></i></a>
+                                            @if (auth()->user()->role == 'Admin')
                                             <button class="btn btn-link btn-sm mt-2"><i class="nav-icon fas fa-trash-alt" onclick="return confirm('Leres bade ngahapus data anu namina {{$data->nama}}  ?')"></i> </button>
+                                            @endif
                                         </form>
                                     </td>
 

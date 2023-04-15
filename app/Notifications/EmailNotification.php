@@ -42,7 +42,6 @@ class EmailNotification extends Notification
             ->line($this->project['kategori'])
             ->line($this->project['pembayaran'])
             ->line($this->project['jumlah'])
-            ->line($this->project['keterangan'])
             ->line($this->project['tanggal'])
             ->action($this->project['actionText'], $this->project['actionURL'])
             ->line($this->project['thanks']);

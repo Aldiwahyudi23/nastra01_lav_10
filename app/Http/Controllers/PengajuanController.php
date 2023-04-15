@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Notifications\EmailNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
@@ -74,9 +74,10 @@ class PengajuanController extends Controller
             $data->lama = $request->lama;
         }
 
-        $bendahara = User::find(4);
-        $seker = User::where('role', 'Sekertaris')->get();
-        $penasehat = User::find(6);
+        // Kanggo send notifikasi
+        $bendahara = User::where('role', 'Bendahara')->get();
+        $seker = User::where('role', 'Admin')->get();
+        $penasehat = User::where('role', 'Penasehat')->get();
         $user = User::find(Auth::user()->id);
         $nama_pengaju = User::find($request->anggota_id);
 
@@ -87,18 +88,45 @@ class PengajuanController extends Controller
             'kategori' => $request->kategori,
             'pembayaran' => $request->pembayaran,
             'jumlah' => $request->jumlah,
-            'keterangan' => $request->keterangan,
-            'tanggal' => $request->tanggal,
+            'tanggal' => $tanggal,
             'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
             'actionText' => 'Tinggal',
             'actionURL' => url('/'),
             'id' => 57
         ];
+        $pengurus = [
+            'greeting' => 'HI DULLURRR',
+            'body' => 'Aya Pengajuan yeuhhhh, Mangga Konfirmasi heula, leres teu aya nu masuk atau di titipkeun.',
+            'nama' => $nama_pengaju->name,
+            'kategori' => $request->kategori,
+            'pembayaran' => $request->pembayaran,
+            'jumlah' => $request->jumlah,
+            'tanggal' => $tanggal,
+            'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
+            'actionText' => 'Cek di web',
+            'actionURL' => url('/'),
+            'id' => 57
+        ];
+        if ($request->pembayaran == "Transfer") {
+            $transfer = [
+                'greeting' => 'HI DULLURRR',
+                'body' => 'Aya Pengajuan yeuhhhh nu Transfer, Mangga Konfirmasi heula cek di M-banking, leres teu aya nu masuk cek di mutasi trus laporkeun di GROUP WA.',
+                'nama' => $nama_pengaju->name,
+                'kategori' => $request->kategori,
+                'pembayaran' => $request->pembayaran,
+                'jumlah' => $request->jumlah,
+                'tanggal' => $tanggal,
+                'thanks' => 'Hatur Nuhun Pisan Atos Berpartisipasi kana PROGRAM ieu',
+                'actionText' => 'Cek di web',
+                'actionURL' => url('/'),
+                'id' => 57
+            ];
+            Notification::sendnow($penasehat, new EmailNotification($transfer));
+        }
 
-        $nama_pengaju->notify(new EmailNotification($project));
-        $bendahara->notify(new EmailNotification($project));
-        $penasehat->notify(new EmailNotification($project));
-
+        Notification::sendnow($nama_pengaju, new EmailNotification($project));
+        Notification::sendnow($seker, new EmailNotification($pengurus));
+        Notification::sendnow($bendahara, new EmailNotification($pengurus));
 
         $data->save();
 
