@@ -6,16 +6,20 @@
     <center>
         <h1>Hapunten !</h1>
         <img src="https://c.tenor.com/Z8ezUHZzcLoAAAAC/love.gif" alt="">
-        <h1>Akun Anjeun Teu Acan di Verifikasi</h1>
-        <h3>Punten anjen teu acan verifikasi emailna, Kanggo ngange aplikasi KAS KELUARGA kedah ngange email nu aktif soal na pemberitahuan pasti lewat email. Janten punten sakali deui mangga verifikasi heula atanapi pami email na teu acan sesuai mangga gera gentos. Hatur Nuhun</h3>
         @if (session('status') == 'verification-link-sent')
         <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
             {{ __('Link kanggo verifikasi atos di kirim ka email anu terdaftar, mangga cek heula email na tras klik verifikasi.') }}
         </div>
+        @else
+        <h3>Akun Anjeun Teu Acan di Verifikasi</h3>
+        <h4>Punten anjen teu acan verifikasi emailna, Kanggo ngange aplikasi KAS KELUARGA kedah ngange email nu aktif soal na pemberitahuan pasti lewat email. Janten punten sakali deui mangga verifikasi heula atanapi pami email na teu acan sesuai mangga gera gentos. Hatur Nuhun</h4>
+
         @endif
         <a id="btn_mau" href="http://api.whatsapp.com/send?phone=6283825740395&text=Punten A Admin, Akun Abdi teu acan AKTIF . Hoyong di aktifkeun nya, Nuhun">Chat Official</a>
         <button id="btn_gamau" onclick="gamau(this)" style="position: relative;">Gamau</button>
         <br>
+        @if (session('status') == 'verification-link-sent')
+        @else
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf
             <div>
@@ -24,6 +28,7 @@
                 </button>
             </div>
         </form>
+        @endif
     </center>
 </body>
 @endsection

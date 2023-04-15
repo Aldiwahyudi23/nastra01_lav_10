@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [HomeController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profil', [ProfileController::class, 'edit'])->name('profile.edit');
