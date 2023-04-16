@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pemasukan;
 use App\Http\Controllers\Controller;
+use App\Models\BayarPinjaman;
 use App\Models\Pengajuan;
 use App\Models\Pengeluaran;
 use App\Models\Program;
@@ -45,7 +46,8 @@ class PemasukanController extends Controller
         // menghitung jumlah setor tunai
         $total_setor_tunai = Pemasukan::where('kategori', 'Setor_tunai')->sum('jumlah');
         // Uang nu teu acan di transfer
-        $uang_blum_diTF = $total_pembayaran_cash - $total_setor_tunai;
+        $total_bayar_pinjaman_cash = BayarPinjaman::where('pembayaran', 'Cash')->sum('jumlah');
+        $uang_blum_diTF = $total_pembayaran_cash - $total_setor_tunai + $total_bayar_pinjaman_cash;
 
         $data_pemasukan_semua = Pemasukan::orderByRaw('created_at DESC')->where('kategori', 'KAS')->get();
         $data_pemasukan_setor_tunai = Pemasukan::orderByRaw('created_at DESC')->where('kategori', 'Setor_Tunai')->get();
@@ -287,5 +289,16 @@ class PemasukanController extends Controller
         $total_pengeluaran = $total_pengeluaran_semua - $total_pinjaman;
 
         return view('pemasukan.show_pemasukan_kas_all', compact('data_pemasukan', 'total_pemasukan', 'total_pengeluaran'));
+    }
+
+    public function data_pemasukan_admin()
+    {
+        $data_pemasukan = Pemasukan::all();
+        $total_pemasukan = Pemasukan::where('kategori', 'Kas')->sum('jumlah');
+        $total_pinjaman = Pengeluaran::where('anggaran_id', 3)->sum('jumlah');
+        $total_pengeluaran_semua = Pengeluaran::all()->sum('jumlah');
+        $total_pengeluaran = $total_pengeluaran_semua - $total_pinjaman;
+
+        return view('admin.master_data.pemasukan.index', compact('data_pemasukan', 'total_pemasukan', 'total_pengeluaran'));
     }
 }

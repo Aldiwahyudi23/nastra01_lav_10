@@ -91,6 +91,8 @@ Route::get('/pemasukans/detail/kas/{id}', [PemasukanController::class, 'detail_a
 Route::get('/pemasukans/detail/tabungan/{id}', [PemasukanController::class, 'detail_anggota_tabungan'])->middleware(['auth', 'verified'])->name('detail.anggota.tabungan');
 Route::get('/pemasukans/tambah/tabungan/{id}', [PemasukanController::class, 'tambah_anggota_tabungan'])->middleware(['auth', 'verified'])->name('tambah.anggota.tabungan');
 Route::get('/pemasukans/kas/all/', [PemasukanController::class, 'data_pemasukan_all'])->middleware(['auth', 'verified'])->name('data_pemasukan_all');
+//pemasukan Admin
+Route::get('/pemasukans/kas/', [PemasukanController::class, 'data_pemasukan_admin'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('data_pemasukan_admin');
 // pengajuan
 Route::resource('pengajuan', PengajuanController::class)->middleware(['auth', 'verified']);
 Route::get('/pengajuans/trash/', [PengajuanController::class, 'trash'])->middleware(['auth', 'verified'])->name('pengajuan.trash');
@@ -98,6 +100,7 @@ Route::post('/pengajuans/kill/{id}', [PengajuanController::class, 'kill'])->midd
 Route::get('/pengajuans/restore/{id}', [PengajuanController::class, 'restore'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('pengajuan.restore');
 Route::get('/pengajuans/kas', [PengajuanController::class, 'index_pemasukan'])->middleware(['auth', 'verified'])->name('table-pengajuan-kas');
 Route::get('/pengajuans/tabungan', [PengajuanController::class, 'index_tabungan'])->middleware(['auth', 'verified'])->name('table-pengajuan-tabungan');
+Route::get('/pengajuans/tarik/tabungan', [PengajuanController::class, 'tarik_tabungan'])->middleware(['auth', 'verified'])->name('table-pengajuan-tarik_tabungan');
 Route::get('/pengajuans/pinjam', [PengajuanController::class, 'index_pinjam'])->middleware(['auth', 'verified'])->name('table-pengajuan-pinjaman');
 Route::get('/pengajuans/bayar', [PengajuanController::class, 'index_bayar_pinjam'])->middleware(['auth', 'verified'])->name('table-pengajuan-bayar_pinjaman');
 Route::get('/pengajuans/laporan/{id}', [PengajuanController::class, 'laporan_pinjaman'])->middleware(['auth', 'verified'])->name('pengajuan.laporan');
@@ -108,9 +111,12 @@ Route::resource('pengeluaran', PengeluaranController::class)->middleware(['auth'
 Route::get('/pengeluarans/trash/', [PengeluaranController::class, 'trash'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('pengeluaran.trash');
 Route::post('/pengeluarans/kill/{id}', [PengeluaranController::class, 'kill'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('pengeluaran.kill');
 Route::get('/pengeluarans/restore/{id}', [PengeluaranController::class, 'restore'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('pengeluaran.restore');
+Route::post('/pengeluarans/store/tarik', [PengeluaranController::class, 'tarik_tabungan'])->middleware(['auth', 'verified'])->name('tarik_tabungan');
 Route::post('/pengeluarans/store/pinjaman', [PengeluaranController::class, 'store_pinjaman'])->middleware(['auth', 'verified'])->name('store_pinjaman');
 Route::get('/pengeluarans/detail/peranggaran/{id}', [PengeluaranController::class, 'table_pengeluaran_detail'])->middleware(['auth', 'verified'])->name('table_pengeluaran_detail');
 Route::get('/pengeluarans/detail/pinjaman/{id}', [PengeluaranController::class, 'table_pengeluaran_detail_pinjaman'])->middleware(['auth', 'verified'])->name('table_pengeluaran_detail_pinjaman');
+//pemasukan Admin
+Route::get('/pengeluarans/all/', [PengeluaranController::class, 'data_pengeluaran_admin'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('data_pengeluaran_admin');
 
 //Data Asset
 Route::resource('pinjaman', BayarPinjamanController::class)->middleware(['auth', 'verified']);

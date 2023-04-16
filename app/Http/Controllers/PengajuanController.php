@@ -535,6 +535,14 @@ class PengajuanController extends Controller
         return view('pengajuan.index', compact('data_pengajuan'));
     }
     // -----------------------------------------------------------------------------------------------------------
+    // Pengluaran==================================================================================================
+    public function tarik_tabungan()
+    {
+        $data_pengajuan = Pengajuan::orderByRaw('created_at DESC')->where('kategori', 'Ambil_Tabungan')->get();
+
+        return view('pengajuan.index', compact('data_pengajuan'));
+    }
+    // -----------------------------------------------------------------------------------------------------------
     // Pinjaman ==================================================================================================
     public function index_pinjam()
     {

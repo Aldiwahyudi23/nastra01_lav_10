@@ -72,7 +72,7 @@
                             <div class="col-sm-3 col-6">
                                 <div class="description-block">
                                     <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 0%</span>
-                                    <h5 class="description-header">{{"Rp" . number_format( $total_dana_pinjam -  $total_pengeluaran_pinjaman,2,',','.')}}</h5>
+                                    <h5 class="description-header">{{"Rp" . number_format( $total_dana_pinjam -  $total_pengeluaran_pinjaman + $total_bayar_pinjaman_semua,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO PINJAMAN</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -144,7 +144,7 @@
 
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="javascript:void(0)" class="product-title">Uang nu di pinjem</a>
-                                    <h5>{{"Rp" . number_format( $total_pengeluaran_pinjaman,2,',','.')}}</h5>
+                                    <h5>{{"Rp" . number_format( $total_pengeluaran_pinjaman - $total_bayar_pinjaman_semua ,2,',','.')}}</h5>
                                     <hr />
                                 </ul>
 
@@ -195,13 +195,13 @@
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="/pengeluaran/detail" class="product-title">Jumlah Penarikan Tabungan</a>
-                                    <h5>{{ "Rp " . number_format(0,2,',','.') }}</h5>
+                                    <h5>{{ "Rp " . number_format($total_pengeluaran_tarik_pinjaman,2,',','.') }}</h5>
                                     <p> Jumlah sadayana Penarikan tabungan anggota.</p>
                                     <hr>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <b> <a href="javascript:void(0)" class="product-title">Jumlah sisa Tabungan</a>
-                                        <h4>{{"Rp" . number_format(0,2,',','.')}}</h4>
+                                        <h4>{{"Rp" . number_format($total_tabungan - $total_pengeluaran_tarik_pinjaman,2,',','.')}}</h4>
                                         <p> Jumlah sisa tabungan anggota, sisa tina penarikan. </p>
                                         <hr />
                                     </b>
@@ -281,11 +281,11 @@
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="{{Route('anggaran.show',Crypt::encrypt(3))}}">Jumlah Dana Pinjam</a>
-                                    <h5>{{"Rp" . number_format($total_dana_pinjam -  $total_pengeluaran_pinjaman,2,',','.')}}</h5>
+                                    <h5>{{"Rp" . number_format($total_dana_pinjam -  $total_pengeluaran_pinjaman + $total_bayar_pinjaman_semua,2,',','.')}}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <a href="{{Route('table_pengeluaran_detail_pinjaman',Crypt::encrypt(3))}}" class="product-title">Uang nu di pinjem</a>
-                                    <h7>{{"Rp" . number_format($total_pengeluaran_pinjaman,2,',','.')}}</h7>
+                                    <a href="{{Route('table_pengeluaran_detail_pinjaman',Crypt::encrypt(3))}}" class="product-title">Sisa Uang nu di pinjem</a>
+                                    <h7>{{"Rp" . number_format($total_pengeluaran_pinjaman - $total_bayar_pinjaman_semua,2,',','.')}}</h7>
                                     <hr />
                                 </ul>
                             </div>
@@ -319,7 +319,7 @@
                                                     @endforeach
                                                     @foreach($data_pemasukan_baru as $data)
                                                     <tr>
-                                                        <td><a href="">IN_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
+                                                        <td><a href="{{route('data_pemasukan_all')}}">IN_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
                                                         <td>{{$data->kategori}}</td>
                                                         <td><span class="badge badge-success">Disetujui</span></td>
                                                         <td>{{ "Rp " . number_format($data->jumlah,2,',','.') }}</td>
@@ -327,7 +327,7 @@
                                                     @endforeach
                                                     @foreach($data_pengeluaran_baru as $data)
                                                     <tr>
-                                                        <td><a href="{{Route('pengeluaran.show',Crypt::encrypt($data->id))}}">EX_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
+                                                        <td><a href="{{Route('table_pengeluaran_detail_pinjaman',Crypt::encrypt(3))}}">EX_{{date('dmy',strtotime($data->tanggal)) }}-{{$data->id}}</a></td>
                                                         <td>{{$data->anggaran->nama_anggaran}}</td>
                                                         <td><span class="badge badge-success">Disetujui</span></td>
                                                         <td>{{ "Rp " . number_format($data->jumlah,2,',','.') }}</td>
@@ -377,7 +377,7 @@
                             <div class="col-sm-3 col-6">
                                 <div class="description-block">
                                     <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
-                                    <h5 class="description-header">{{"Rp" . number_format( $total_dana_pinjam -  $total_pengeluaran_pinjaman,2,',','.')}}</h5>
+                                    <h5 class="description-header">{{"Rp" . number_format( $total_dana_pinjam -  $total_pengeluaran_pinjaman + $total_bayar_pinjaman_semua,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO PINJAMAN</span>
                                 </div>
                                 <!-- /.description-block -->

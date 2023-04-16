@@ -14,6 +14,7 @@ $bayar = Pengajuan::where('kategori', 'Kas')->count();
 $pinjaman = Pengajuan::where('kategori', 'Pinjaman')->count();
 $bayar_pinjaman = Pengajuan::where('kategori', 'Bayar_Pinjaman')->count();
 $bayar_tabungan = Pengajuan::where('kategori', 'Tabungan')->count();
+$tarik_tabungan = Pengajuan::where('kategori', 'Ambil_Tabungan')->count();
 
 // Data Anggaran
 $data_anggaran = Anggaran::all();
@@ -78,6 +79,17 @@ $data_pinjaman = AsetPinjam::find(1);
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-tarik_tabungan')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tarik abungan</p>
+                                @if ($tarik_tabungan == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$tarik_tabungan}}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{Route('table-pengajuan-pinjaman')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pinjaman</p>
@@ -132,6 +144,18 @@ $data_pinjaman = AsetPinjam::find(1);
                             <a href="{{Route('role.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Role /Akses</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('data_pemasukan_admin')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pemasukan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('data_pengeluaran_admin')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pengeluaran</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -276,6 +300,17 @@ $data_pinjaman = AsetPinjam::find(1);
                                 @else
                                 <i class="fas fa-angle-left right"></i>
                                 <span class="badge badge-info right">{{$bayar_tabungan}}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{Route('table-pengajuan-tarik_tabungan')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tarik abungan</p>
+                                @if ($tarik_tabungan == 0)
+                                @else
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">{{$tarik_tabungan}}</span>
                                 @endif
                             </a>
                         </li>

@@ -8,14 +8,21 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="/" class="nav-link">Home</a>
         </li>
+        @if(Auth::user()->program1 == "Kas")
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{Route('pemasukan.index')}}" class="nav-link">Bayar</a>
+            <a href="{{Route('pemasukan.index')}}" class="nav-link" id="bayar ">Bayar</a>
         </li>
+        @endif
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{Route('profile')}}" class="nav-link">Profile</a>
         </li>
+        @if(Auth::user()->program1 == "Kas")
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{Route('pengeluaran.index')}}" class="nav-link">Pinjam</a>
+            <a href="{{Route('pengeluaran.index')}}" class="nav-link" id="pinjam">Pinjam</a>
+        </li>
+        @endif
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/peraturan" class="nav-link" id="pinjam">Setting</a>
         </li>
         <li class="nav-item">
             <a class="brand-link" style="color: #fff;" data-widget="pushmenu" href="#">

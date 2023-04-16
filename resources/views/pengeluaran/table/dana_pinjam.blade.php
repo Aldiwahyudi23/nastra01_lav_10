@@ -1,6 +1,7 @@
  <thead>
      <tr>
          <th>No</th>
+         <th>Status</th>
          <th>Nama</th>
          <th>Nominal</th>
          <th>Bulan</th>
@@ -13,9 +14,20 @@
      $total = 0;
      @endphp
      @foreach($dana_pinjam as $data)
-     <?php $no++; ?>
+     <?php $no++;
+        $status2 = DB::table('pengeluarans')->find($data->id);
+        ?>
      <tr>
          <td>{{$no}}</td>
+         <td>
+             <a href="{{Route('pinjaman.show',Crypt::encrypt($data->id))}}" class="">
+                 @if ( $status2->status == 'Lunas')
+                 <i class="btn btn-success "> LUNAS </i>
+                 @elseif ( $status2->status == 'Nunggak')
+                 <i class=" btn btn-warning "> Bayar </i>
+                 @endif
+                 </i></a>
+         </td>
          <td>{{$data->anggota->name}}</td>
          <td>{{ "Rp " . number_format($data->jumlah,2,',','.') }}</td>
          <td>{{date('M-y',strtotime($data->tanggal)) }}</td>

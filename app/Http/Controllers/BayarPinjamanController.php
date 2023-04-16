@@ -138,12 +138,13 @@ class BayarPinjamanController extends Controller
         $data_setor = Pengeluaran::orderByRaw('created_at DESC')->get();
         $data_anggota = User::orderByRaw('name ASC')->get();
 
+        $cek_pengajuan = Pengajuan::where('kategori', 'Bayar_Pinjaman')->count();
         $bayar_pinjam = BayarPinjaman::where('pengeluaran_id', $id)->get();
         $total_bayar_pinjam = BayarPinjaman::where('pengeluaran_id', $id)->sum('jumlah');
 
         $data_pinjaman = Pengeluaran::find($id);
 
-        return view('pemasukan.bayar_pinjaman.form_bayar_pinjam', compact('data_pinjaman', 'data_setor', 'data_anggota', 'bayar_pinjam', 'total_bayar_pinjam'));
+        return view('pemasukan.bayar_pinjaman.form_bayar_pinjam', compact('data_pinjaman', 'data_setor', 'data_anggota', 'bayar_pinjam', 'total_bayar_pinjam', 'cek_pengajuan'));
     }
 
     /**

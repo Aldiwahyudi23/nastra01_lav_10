@@ -24,7 +24,7 @@
     <!-- Theme style -->
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition white-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -233,13 +233,15 @@
         <?php
 
         use App\Models\Anggaran;
+        use App\Models\BayarPinjaman;
         use App\Models\Pemasukan;
 
         $total_pembayaran_cash = Pemasukan::where('pembayaran', 'Cash')->sum('jumlah');
         // menghitung jumlah setor tunai
         $total_setor_tunai = Pemasukan::where('kategori', 'Setor_tunai')->sum('jumlah');
         // Uang nu teu acan di transfer
-        $uang_blum_diTF = $total_pembayaran_cash - $total_setor_tunai;
+        $total_bayar_pinjaman_cash = BayarPinjaman::where('pembayaran', 'Cash')->sum('jumlah');
+        $uang_blum_diTF = $total_pembayaran_cash - $total_setor_tunai + $total_bayar_pinjaman_cash;
         // Data Anggaran
         $data_anggaran = Anggaran::all();
         $data_anggaran_max_pinjaman = Anggaran::find(3);

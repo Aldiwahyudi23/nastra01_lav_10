@@ -105,6 +105,42 @@
 
                         </form>
                         @endif
+                        <!-- Jika data Tabungan DAN kas -->
+                        @if( $data_pengajuan->kategori == 'Ambil_Tabungan')
+                        <form action="{{Route('tarik_tabungan')}}" method="post" enctype="multipart/form-data">
+                            {{csrf_field()}}
+
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <b><i class="fas fa-info"></i> INFO !!!</b> <br>
+                                Pami bade ngalaporkeun mangga Tanda Bukti Transferanna na cantumkeun di alasan pengaju
+                                <br> <br> Tombol<b> SETUJUI</b> nu di handap Fungsina kanggo ngakomfirmasi bahwa pengambilan atau Tarik Tabungan Atos di Transfer atau di pasihkeun.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="keterangan">keterangan</label>
+                                <textarea name="keterangan" class="textarea form-control bg-light @error('keterangan') is-invalid @enderror" id="summernote" rows="6" value="{{ old('keterangan') }}">{!!$data_pengajuan->keterangan!!}</textarea>
+                                @error('keterangan')
+                                <div class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
+                            <input type="hidden" id="pengajuan_id" name="pengajuan_id" value="{{ $data_pengajuan->id }}">
+                            <input type="hidden" id="anggaran_id" name="anggaran_id" value="7">
+                            <input type="hidden" id="anggota_id" name="anggota_id" value="{{ $data_pengajuan->anggota_id }}">
+                            <input type="hidden" id="jumlah" name="jumlah" value=" {{ $data_pengajuan->jumlah }}">
+                            <input type="hidden" id="tanggal" name="tanggal" value="{{ $data_pengajuan->created_at }}">
+                            <input type="hidden" id="status" name="status" value="Sukses">
+                            <input type="hidden" id="pembayaran" name="pembayaran" value="{{ $data_pengajuan->pembayaran }}">
+                            <input type="hidden" id="foto1" name="foto1" value="{{ $data_pengajuan->foto }}">
+
+                            <button onclick="tombol()" id="myBtn" type="submit" class="btn btn-primary btn-sm"><i class="fas fa-send"></i> YUUU KASIH</button>
+                            <div id="tombol_proses"></div>
+                        </form>
+                        @endif
                         <!-- Jika data Bayar Pinjaman di pisah karena beda tabel -->
                         @if( $data_pengajuan->kategori == 'Bayar_Pinjaman')
                         <form action="{{Route('pinjaman.store')}}" method="post" enctype="multipart/form-data">

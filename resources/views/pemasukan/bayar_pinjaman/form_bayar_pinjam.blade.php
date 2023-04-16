@@ -114,7 +114,8 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-
+                        @if ($data_pinjaman->anggota_id == Auth::user()->id)
+                        @if ($cek_pengajuan == 0)
                         <center>
                             <h5 class="text-bold card-header bg-light p-0"> BAYAR TABUNGAN</h5>
                         </center>
@@ -163,6 +164,19 @@
                             <button onclick="tombol()" id="myBtn" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> YUUU BAYAR</button>
                             <div id="tombol_proses"></div>
                         </form>
+                        @else
+
+                        <body class="justify-content-center">
+                            <center>
+                                <h3><b> HALLOOOO.....</b></h3>
+                                <h3>Pembayaran Pinjaman Nuju di Proses</h3>
+                                <img src="https://c.tenor.com/Z8ezUHZzcLoAAAAC/love.gif" alt="" width="50%">
+                                <h3>Hatur Nuhun Atas kerja Samana, Bismillah sukses</h3>
+                                <h5>Harappp di antos dicek ka bendahara sareng sekertaris </h5>
+                            </center>
+                        </body>
+                        @endif
+                        @endif
                         @endif
                     </div>
                 </div>
