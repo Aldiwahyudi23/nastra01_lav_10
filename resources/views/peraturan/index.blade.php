@@ -66,6 +66,19 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="card card-warning card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">Bantuan</h3>
+                            </div>
+                            <div class="card-body">
+                                <table class="table" style="margin-top: -21px;">
+                                    <tr>
+                                        <td width="50"><i class="nav-icon far fa-plus-square"></i>
+                                        <td> <a href="{{Route('bantuan.detail',Crypt::encrypt(2))}} " class="text-dark">Bantuan<a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

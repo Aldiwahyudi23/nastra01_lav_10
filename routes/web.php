@@ -4,6 +4,7 @@ use App\Http\Controllers\AnggaranController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\AsetController;
 use App\Http\Controllers\AsetPinjamController;
+use App\Http\Controllers\BantuanController;
 use App\Http\Controllers\BayarPinjamanController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeluargaController;
@@ -71,6 +72,16 @@ Route::resource('anggaran', AnggaranController::class)->middleware(['auth', 'ver
 Route::get('/anggarans/trash/', [AnggaranController::class, 'trash'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('anggaran.trash');
 Route::post('/anggarans/kill/{id}', [AnggaranController::class, 'kill'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('anggaran.kill');
 Route::get('/anggarans/restore/{id}', [AnggaranController::class, 'restore'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('anggaran.restore');
+
+//DATA bantuan
+Route::resource('bantuan', BantuanController::class)->middleware(['auth', 'verified']);
+Route::get('/bantuans/trash/', [BantuanController::class, 'trash'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('bantuan.trash');
+Route::post('/bantuans/kill/{id}', [BantuanController::class, 'kill'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('bantuan.kill');
+Route::get('/bantuans/restore/{id}', [BantuanController::class, 'restore'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('bantuan.restore');
+Route::get('/bantuans/detail/{id}', [BantuanController::class, 'bantuan'])->middleware(['auth'])->name('bantuan.detail');
+Route::get('/bantuans/login/{id}', [BantuanController::class, 'login'])->name('bantuan.login');
+
+
 //Data Asset
 Route::resource('aset', AsetController::class)->middleware(['auth', 'verified']);
 Route::get('/asets/trash/', [AsetController::class, 'trash'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('aset.trash');

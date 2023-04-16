@@ -60,6 +60,9 @@
     <p class="mb-1" style="color: white">
         Pami Kata sandi na hilap, kontak ka sekertaris.
     </p>
+    <div>
+        <a href="{{Route('bantuan.login',Crypt::encrypt(1))}}">Bantuan tutor</a>
+    </div>
 
 </div>
 @endsection

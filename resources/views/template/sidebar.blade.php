@@ -266,6 +266,14 @@ $data_pinjaman = AsetPinjam::find(1);
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{Route('bantuan.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-columns"></i>
+                        <p>
+                            Data Bantuan
+                        </p>
+                    </a>
+                </li>
                 @else
                 @if (Auth::user()->role == "Bendahara")
                 <li class="nav-item">
