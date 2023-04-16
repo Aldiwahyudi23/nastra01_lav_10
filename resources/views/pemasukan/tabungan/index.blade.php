@@ -54,3 +54,8 @@
      </div><!--/. container-fluid -->
  </section>
  @endsection
+ @section('script')
+ <script>
+     $("#bayar").addClass("active");
+ </script>
+ @endsection

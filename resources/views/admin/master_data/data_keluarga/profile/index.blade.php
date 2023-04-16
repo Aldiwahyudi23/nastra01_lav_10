@@ -151,3 +151,9 @@
     </div>
 </div>
 @endsection
+
+@section('script')
+<script>
+    $("#profile").addClass("active");
+</script>
+@endsection

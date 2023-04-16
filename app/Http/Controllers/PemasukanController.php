@@ -278,4 +278,14 @@ class PemasukanController extends Controller
         $data_pemasukan->forceDelete();
         return redirect()->back()->with('kuning', 'Data pemasukan parantos di hapus dina sampah');
     }
+    public function data_pemasukan_all()
+    {
+        $data_pemasukan = Pemasukan::orderByRaw('created_at DESC')->where('kategori', 'Kas')->get();
+        $total_pemasukan = Pemasukan::where('kategori', 'Kas')->sum('jumlah');
+        $total_pinjaman = Pengeluaran::where('anggaran_id', 3)->sum('jumlah');
+        $total_pengeluaran_semua = Pengeluaran::all()->sum('jumlah');
+        $total_pengeluaran = $total_pengeluaran_semua - $total_pinjaman;
+
+        return view('pemasukan.show_pemasukan_kas_all', compact('data_pemasukan', 'total_pemasukan', 'total_pengeluaran'));
+    }
 }

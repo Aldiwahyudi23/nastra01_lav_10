@@ -78,3 +78,8 @@
     </div><!--/. container-fluid -->
 </section>
 @endsection
+@section('script')
+<script>
+    $("#pinjam").addClass("active");
+</script>
+@endsection

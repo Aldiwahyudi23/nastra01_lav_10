@@ -48,4 +48,7 @@
     });
   });
 </script>
+<script>
+  $("#Pengaturan").addClass("active");
+</script>
 @endsection

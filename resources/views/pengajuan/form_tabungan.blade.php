@@ -39,10 +39,22 @@
             </div>
             @enderror
         </div>
-        <input type="hidden" id="kategori" name="kategori" value="Tabungan">
+        <div class="form-group row">
+            <label for="kategori">Nabung / Narik</label>
+            <select name="kategori" id="kategori" class="form-control select2bs4 @error('kategori') is-invalid @enderror" required>
+
+                <option value="Tabungan">Nabung</option>
+                <option value="Ambil_Tabungan">Tarik Tunai</option>
+            </select>
+            @error('kategori')
+            <div class="invalid-feedback">
+                <strong>{{ $message }}</strong>
+            </div>
+            @enderror
+        </div>
         <input type="hidden" id="anggota_id" name="anggota_id" value="{{Auth::user()->id}}">
         <hr>
-        <button onclick="tombol()" id="myBtn" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> YUUU NABUNG</button>
+        <button onclick="tombol()" id="myBtn" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> YUUU AJUKEUN</button>
         <div id="tombol_proses"></div>
     </form>
 </div>

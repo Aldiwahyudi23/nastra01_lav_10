@@ -246,7 +246,7 @@
 
                             <div class="col-md-6">
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <b> <a href="javascript:void(0)" class="product-title">Saldo Kas</a>
+                                    <b> <a href="{{route('data_pemasukan_all')}}" class="product-title">Saldo Kas</a>
                                         <h4>{{"Rp" . number_format( $saldo_kas,2,',','.')}}</h4>
                                         <p> Jumlah Total saldo anu aya di bendahara atawa sisa tina pengeluaran termasuk data pinjaman. </p>
                                         <hr />
@@ -257,7 +257,7 @@
                                     <h5>{{ "Rp " . number_format($total_dana_darurat - $total_pengeluaran_darurat ,2,',','.') }}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Darurat nu tos ka angge </a>
+                                    <a href="{{Route('table_pengeluaran_detail',Crypt::encrypt(1))}}" class="product-title">Jumlah Dana Darurat nu tos ka angge </a>
                                     <h7>{{ "Rp " . number_format($total_pengeluaran_darurat ,2,',','.') }}</h7>
                                     <hr>
                                 </ul>
@@ -266,7 +266,7 @@
                                     <h5>{{ "Rp " . number_format($total_dana_amal - $total_pengeluaran_amal,2,',','.') }}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Amal nu tos ka angge </a>
+                                    <a href="{{Route('table_pengeluaran_detail',Crypt::encrypt(2))}}" class="product-title">Jumlah Dana Amal nu tos ka angge </a>
                                     <h7>{{ "Rp " . number_format($total_pengeluaran_amal ,2,',','.') }}</h7>
                                     <hr>
                                 </ul>
@@ -275,7 +275,7 @@
                                     <h5>{{"Rp" . number_format($total_dana_kas - $total_pengeluaran_lain,2,',','.')}}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <a href="/pengluaran/pinjam/anggota" class="product-title">Jumlah Dana Kas nu tos ka angge </a>
+                                    <a href="{{Route('table_pengeluaran_detail',Crypt::encrypt(6))}}" class="product-title">Jumlah Dana Kas nu tos ka angge </a>
                                     <h7>{{ "Rp " . number_format($total_pengeluaran_lain + $total_pengeluaran_usaha + $total_pengeluaran_acara  ,2,',','.') }}</h7>
                                     <hr>
                                 </ul>
@@ -284,7 +284,7 @@
                                     <h5>{{"Rp" . number_format($total_dana_pinjam -  $total_pengeluaran_pinjaman,2,',','.')}}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
-                                    <a href="/pengluaran/pinjam/anggota" class="product-title">Uang nu di pinjem</a>
+                                    <a href="{{Route('table_pengeluaran_detail_pinjaman',Crypt::encrypt(3))}}" class="product-title">Uang nu di pinjem</a>
                                     <h7>{{"Rp" . number_format($total_pengeluaran_pinjaman,2,',','.')}}</h7>
                                     <hr />
                                 </ul>
@@ -531,7 +531,7 @@
                                     </a>
                                 </div>
                                 <div class="product-info">
-                                    <a href="" class="product-title">{{$user_login->name}} </a>
+                                    <a href="{{route('profile.user',Crypt::encrypt($user_login->id))}}" class="product-title">{{$user_login->name}} </a>
                                     @if(Cache::has('user-is-online-' .$user_login->id))
                                     <span class="text-success badge float-right">Online</span>
                                     @else
@@ -553,4 +553,9 @@
 
     </div><!--/. container-fluid -->
 </section>
+@endsection
+@section('script')
+<script>
+    $("#imah").addClass("active");
+</script>
 @endsection

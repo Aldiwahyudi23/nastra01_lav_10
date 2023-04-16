@@ -90,6 +90,7 @@ Route::get('/pemasukans/restore/{id}', [PemasukanController::class, 'restore'])-
 Route::get('/pemasukans/detail/kas/{id}', [PemasukanController::class, 'detail_anggota_kas'])->middleware(['auth', 'verified'])->name('detail.anggota.kas');
 Route::get('/pemasukans/detail/tabungan/{id}', [PemasukanController::class, 'detail_anggota_tabungan'])->middleware(['auth', 'verified'])->name('detail.anggota.tabungan');
 Route::get('/pemasukans/tambah/tabungan/{id}', [PemasukanController::class, 'tambah_anggota_tabungan'])->middleware(['auth', 'verified'])->name('tambah.anggota.tabungan');
+Route::get('/pemasukans/kas/all/', [PemasukanController::class, 'data_pemasukan_all'])->middleware(['auth', 'verified'])->name('data_pemasukan_all');
 // pengajuan
 Route::resource('pengajuan', PengajuanController::class)->middleware(['auth', 'verified']);
 Route::get('/pengajuans/trash/', [PengajuanController::class, 'trash'])->middleware(['auth', 'verified'])->name('pengajuan.trash');
@@ -108,6 +109,8 @@ Route::get('/pengeluarans/trash/', [PengeluaranController::class, 'trash'])->mid
 Route::post('/pengeluarans/kill/{id}', [PengeluaranController::class, 'kill'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('pengeluaran.kill');
 Route::get('/pengeluarans/restore/{id}', [PengeluaranController::class, 'restore'])->middleware(['auth', 'verified', 'checkRole:Admin'])->name('pengeluaran.restore');
 Route::post('/pengeluarans/store/pinjaman', [PengeluaranController::class, 'store_pinjaman'])->middleware(['auth', 'verified'])->name('store_pinjaman');
+Route::get('/pengeluarans/detail/peranggaran/{id}', [PengeluaranController::class, 'table_pengeluaran_detail'])->middleware(['auth', 'verified'])->name('table_pengeluaran_detail');
+Route::get('/pengeluarans/detail/pinjaman/{id}', [PengeluaranController::class, 'table_pengeluaran_detail_pinjaman'])->middleware(['auth', 'verified'])->name('table_pengeluaran_detail_pinjaman');
 
 //Data Asset
 Route::resource('pinjaman', BayarPinjamanController::class)->middleware(['auth', 'verified']);

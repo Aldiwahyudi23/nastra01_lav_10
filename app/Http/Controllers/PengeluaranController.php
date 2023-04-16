@@ -252,4 +252,24 @@ class PengeluaranController extends Controller
         $data_pengeluaran->forceDelete();
         return redirect()->back()->with('kuning', 'Data pengeluaran parantos di hapus dina sampah');
     }
+    public function table_pengeluaran_detail($id)
+    {
+        $id = Crypt::decrypt($id);
+        if ($id == 6) {
+            $data_pengeluaran = Pengeluaran::where('anggaran_id', 6)->get();
+        } else {
+            $data_pengeluaran = Pengeluaran::where('anggaran_id', $id)->get();
+        }
+
+        return view('pengeluaran.show_pengeluaran_peranggaran', compact('data_pengeluaran'));
+    }
+    public function table_pengeluaran_detail_pinjaman($id)
+    {
+        $id = Crypt::decrypt($id);
+
+        $data_pengeluaran = Pengeluaran::where('anggaran_id', $id)->get();
+
+
+        return view('pengeluaran.show_pengeluaran_peranggaran_pinjaman', compact('data_pengeluaran'));
+    }
 }

@@ -134,4 +134,8 @@
         });
     });
 </script>
+
+<script>
+    $("#bayar").addClass("active");
+</script>
 @endsection
