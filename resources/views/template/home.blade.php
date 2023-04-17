@@ -259,11 +259,15 @@
         function stateHandle() {
             if (document.getElementById("jumlah").value <= 49999) {
                 button_pinjam.disabled = true;
+                document.getElementById("keterangann").innerHTML = "";
             } else if (document.getElementById("jumlah").value >= <?php echo $jatah ?>) {
                 button_pinjam.disabled = true;
+                document.getElementById("keterangann").innerHTML = "";
             } else {
                 button_pinjam.disabled = false;
+                document.getElementById("keterangann").innerHTML = "<b> Alasan</b>    : <br> <br> <b> Pami Transfer Esian Data Bank </b> <br> Nama Bank  : <br> No Req    : <br> A/N  : <br> <br><b> Pami bade cash mangga input prosesna pengambilanna : </b> <br> <br><b> Tanggal Di kembalikeun </b> : <br> <hr> <center> Pami Atos di Setujui Bukti di Cantumkeun di Handap </center>";
             }
+
         }
     </script>
 
@@ -372,9 +376,10 @@
             }
 
             rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
-            return prefix == undefined ? rupiah : rupiah ? rupiah : "";
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp.' + rupiah : "");
         }
     </script>
+
     <!-- Validasi jumlah  ============================================-->
     <?php
 
@@ -391,8 +396,6 @@
     @endif
     @endif
     <!-- form validasi jumlahhhh teu kapake  -->
-
-
 </body>
 
 </html>

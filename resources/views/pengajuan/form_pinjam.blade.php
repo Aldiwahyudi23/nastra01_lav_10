@@ -32,13 +32,16 @@
     </div>
     <div class="form-group">
         <label for="keterangan">Keterangan</label>
-        <textarea name="keterangan" class="textarea form-control bg-light @error('keterangan') is-invalid @enderror" id="summernote" rows="6" value="{{ old('keterangan') }}">{{ old('keterangan') }}</textarea>
+        <textarea name="keterangan" class="textarea form-control bg-light @error('keterangan') is-invalid @enderror" id="summernote" rows="6" value="{{ old('keterangan') }}">{{ old('keterangan') }}
+        <p id="keterangann"></p>
+        </textarea>
         @error('keterangan')
         <div class="invalid-feedback">
             <strong>{{ $message }}</strong>
         </div>
         @enderror
     </div>
+    <p id="keterangan"></p>
     <hr>
     <button onclick="tombol_pinjam()" id="myBtn_pinjam" type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> PINJAM</button>
     <div id="tombol_proses"></div>

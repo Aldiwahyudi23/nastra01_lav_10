@@ -15,7 +15,7 @@
         </li>
         @if(Auth::user()->program1 == "Kas")
         <li class="nav-item">
-            <a href="{{Route('pengeluaran.index')}}" id="pinjam" class="nav-link text-center"><i class="nav-icon fas fa-handshake "></i><span class="small d-block">Pinjam</span></a>
+            <a href="{{Route('pengeluaran.index')}}" id="pinja" class="nav-link text-center"><i class="nav-icon fas fa-handshake "></i><span class="small d-block">Pinjam</span></a>
         </li>
         @endif
         <li class="nav-item">

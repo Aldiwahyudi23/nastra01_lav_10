@@ -94,51 +94,33 @@
                         <a href="#" class="d-block">Keluarga Ma. Haya</a>
                     </div>
                 </div>
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
 
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <!-- Sidebar Menu -->
-                <nav class="mt-2">
+                <nav class="mt-2" id="myMenu">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Program KAS (contoh)
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data 1</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data 2</p>
-                                    </a>
-                                </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-header">BANTUAN</li>
                         @foreach($data_bantuan as $data)
                         <li class="nav-item">
                             <a href="{{Route('bantuan.detail',Crypt::encrypt($data->id))}}" class="nav-link">
-                                *
-                                <p>
-                                    {{$data->nama_bantuan}}
-                                </p>
+                                * {{$data->nama_bantuan}}
                             </a>
                         </li>
                         @endforeach
-                        <hr>
                         <li class="nav-item">
                             <a href="/" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i> &nbsp;
-                                <p>Keluar (dari tutor)
-                                </p>
+                                Keluar (dari tutor)
                             </a>
                         </li>
                     </ul>
@@ -201,6 +183,24 @@
 
     <script src="{{asset('layouts/dist/js/pages/dashboard2.js')}}"></script>
     <!-- scrip untuk navigasi bawah -->
+
+    <script>
+        function myFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("mySearch");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myMenu");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

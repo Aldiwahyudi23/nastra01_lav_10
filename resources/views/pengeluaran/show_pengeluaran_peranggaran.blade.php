@@ -66,6 +66,6 @@
  @endsection
  @section('script')
  <script>
-     $("#pinjam").addClass("active");
+     $("#pinja").addClass("active");
  </script>
  @endsection
