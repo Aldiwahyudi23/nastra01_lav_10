@@ -11,8 +11,8 @@
             {{ __('Link kanggo verifikasi atos di kirim ka email anu terdaftar, mangga cek heula email na tras klik verifikasi.') }}
         </div>
         @else
-        <h3>Akun Anjeun Teu Acan di Verifikasi</h3>
-        <h4>Punten anjen teu acan verifikasi emailna, Kanggo ngange aplikasi KAS KELUARGA kedah ngange email nu aktif soal na pemberitahuan pasti lewat email. Janten punten sakali deui mangga verifikasi heula atanapi pami email na teu acan sesuai mangga gera gentos. Hatur Nuhun</h4>
+        <h4>Akun Anjeun Teu Acan di Verifikasi</h4>
+        <h6>Punten anjen teu acan verifikasi emailna, Kanggo ngange aplikasi KAS KELUARGA kedah ngange email nu aktif soal na pemberitahuan pasti lewat email. Janten punten sakali deui mangga verifikasi heula atanapi pami email na teu acan sesuai mangga gera gentos. Hatur Nuhun</h6>
 
         @endif
         <a id="btn_mau" href="http://api.whatsapp.com/send?phone=6283825740395&text=Punten A Admin, Akun Abdi teu acan AKTIF . Hoyong di aktifkeun nya, Nuhun">Chat Official</a>
