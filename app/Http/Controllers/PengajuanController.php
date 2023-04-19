@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
 use App\Http\Controllers\Controller;
+use App\Models\Keluarga;
 use App\Models\Pemberitahuan;
 use App\Models\Pengeluaran;
 use App\Models\User;
@@ -54,6 +55,10 @@ class PengajuanController extends Controller
             $file->move(public_path('/img/bukti'), $nama);
         }
         $tanggal = Carbon::now();
+        $id = User::find(Auth::user()->id); // mengambil data user yang login
+        $data_keluarga = Keluarga::find($id->keluarga_id); //mengambil data dari data keluarga sesuai dengan id dari yang login
+        $id_user_hubungan = Keluarga::find($data_keluarga->keluarga_id); //mengambil id dari hubungan si penglogin
+
 
         $data = new Pengajuan();
         $data->pembayaran = $request->pembayaran;
@@ -62,7 +67,12 @@ class PengajuanController extends Controller
         $data->kategori = $request->kategori;
         $data->tanggal = $tanggal;
         $data->status = "Proses";
-        $data->anggota_id = $request->anggota_id;
+        $data->pengaju_id = Auth::user()->id;
+        if ($data_keluarga->hubungan == "Istri" || $data_keluarga->hubungan == "Suami") {
+            $data->anggota_id = $id_user_hubungan->user_id;
+        } else {
+            $data->anggota_id = $request->anggota_id;
+        }
         if ($request->foto) {
             $data->foto          = "/img/bukti/$nama";
         }

@@ -46,6 +46,7 @@ $tanggal = Carbon::now();
         </div>
         <input type="hidden" name="tanggal" id="tanggal" value="{{$tanggal}}">
         @else
+        <input type="hidden" name="tanggal" id="tanggal" value="{{$tanggal}}">
         <input type="hidden" name="kategori" id="kategori" value="Kas">
         @endif
 

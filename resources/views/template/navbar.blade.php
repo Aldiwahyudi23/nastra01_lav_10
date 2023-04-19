@@ -36,6 +36,7 @@
         <!-- Messages Dropdown Menu -->
         <?php
 
+        use App\Models\Keluarga;
         use App\Models\Pengajuan;
         use App\Models\User;
 
@@ -43,8 +44,21 @@
         $pengajuan = Pengajuan::all();
         $pengajuan_pinjaman_total = Pengajuan::where('kategori', 'Pinjaman')->count();
         $pengajuan_pinjaman = Pengajuan::where('kategori', 'Pinjaman');
-        $pengajuan_user_total = Pengajuan::where('anggota_id', Auth::user()->id)->count();
-        $pengajuan_user = Pengajuan::where('anggota_id', Auth::user()->id)->get();
+        // cek pengajuan
+        $id = User::find(Auth::user()->id); // mengambil data user yang login
+        $data_keluarga = Keluarga::find($id->keluarga_id); //mengambil data dari data keluarga sesuai dengan id dari yang login
+        $id_user_hubungan = Keluarga::find($data_keluarga->keluarga_id); //mengambil id dari hubungan si penglogin
+
+        if (
+            $data_keluarga->hubungan == "Istri" || $data_keluarga->hubungan == "Suami"
+        ) {
+            $pengajuan_user_total = Pengajuan::where('anggota_id', $id_user_hubungan->user_id)->count();
+            $pengajuan_user = Pengajuan::where('anggota_id', $id_user_hubungan->user_id)->get();
+        } else {
+            $pengajuan_user_total = Pengajuan::where('anggota_id', Auth::id())->count();
+            $pengajuan_user = Pengajuan::where('anggota_id', Auth::user()->id)->get();
+        }
+        // cek pengajuan sampai die
         ?>
         <!-- Notif buat bendahara dan sekertaris -->
         @if(Auth::user()->role == "Admin" || Auth::user()->role == "Bendahara" ||Auth::user()->role == "Sekertaris")

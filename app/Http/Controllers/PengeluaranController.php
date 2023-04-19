@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengeluaran;
 use App\Http\Controllers\Controller;
 use App\Models\Anggaran;
+use App\Models\Keluarga;
 use App\Models\Pemasukan;
 use App\Models\Pengajuan;
 use App\Models\Program;
@@ -25,11 +26,21 @@ class PengeluaranController extends Controller
     public function index()
     {
         $data_pengeluaran_semua = Pengeluaran::all();
-        $data_pengeluaran_pinjaman = Pengeluaran::where('anggaran_id', 3)->where('anggota_id', Auth::user()->id)->get();
+        // cek data pasangan suami istri
+        $id = User::find(Auth::user()->id); // data user di table user
+        $data_keluarga = Keluarga::find($id->keluarga_id); //data user di data keluarga
+        $id_user_hubungan = $data_keluarga->keluarga->user_id;
+        if ($data_keluarga->hubungan == "Istri" || $data_keluarga->hubungan == "Suami") {
+            $data_pengeluaran_pinjaman = Pengeluaran::where('anggaran_id', 3)->where('anggota_id', $id_user_hubungan)->get();
+            $cek_pengeluaran_pinjaman_user = Pengeluaran::where('anggaran_id', 3)->where('anggota_id', $id_user_hubungan)->where('status', 'Nunggak')->count();
+        } else {
+            $data_pengeluaran_pinjaman = Pengeluaran::where('anggaran_id', 3)->where('anggota_id', Auth::user()->id)->get();
+            $cek_pengeluaran_pinjaman_user = Pengeluaran::where('anggaran_id', 3)->where('anggota_id', Auth::id())->where('status', 'Nunggak')->count();
+        }
+        // sampe die
         $program = Anggaran::Find(3);
         $cek_pengajuan = Pengajuan::where('kategori', 'Pinjaman')->where('anggota_id', Auth::id())->count();
         $cek_pengajuan_proses = Pengajuan::where('anggota_id', Auth::id())->get();
-        $cek_pengeluaran_pinjaman_user = Pengeluaran::where('anggaran_id', 3)->where('anggota_id', Auth::id())->where('status', 'Nunggak')->count();
         $cek_pengeluaran_pinjaman = Pengeluaran::where('anggaran_id', 3)->where('status', 'Nunggak')->count();
 
         // Data Anggaran

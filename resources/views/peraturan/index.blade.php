@@ -43,13 +43,26 @@
                                         <td> <a href="{{ route('pengaturan.email') }}" class="text-dark">Ubah Email<a></td>
                                     </tr>
                                     <tr>
-
                                         <td width="50"><i class="nav-icon fas fa-key"></i></td>
                                         <td> <a href="{{ route('pengaturan.password') }}" class="text-dark"> Ubah Password
                                             </a>
                                         </td>
-
                                     </tr>
+                                    <tr>
+                                        <td width="50"><i class="nav-icon fas fa-check"></i></td>
+                                        <td>Sambungkan</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            @if ($id_user_hubungan == FALSE)
+                                            <p>Account teu acan tersambung</p>
+                                            @else
+                                            <p class="">Account atos tersambung, pami anu tos berkeluarga data tiasa di akses</p>
+                                            @endif
+                                        </td>
+                                    </tr>
+
                                 </table>
                             </div>
                         </div>

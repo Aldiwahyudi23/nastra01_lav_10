@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Aset;
 use App\Models\AsetPinjam;
 use App\Models\BayarPinjaman;
+use App\Models\Keluarga;
 use App\Models\Pemasukan;
 use App\Models\Pengajuan;
 use App\Models\Pengeluaran;
@@ -176,7 +177,11 @@ class HomeController extends Controller
 
     public function peraturan()
     {
+        $id = User::find(Auth::user()->id); // data user di table user
+        $data_keluarga = Keluarga::find($id->keluarga_id); //data user di data keluarga
+        $id_user_hubungan = $data_keluarga->user_id;
+
         $keluarga = User::find(Auth::user()->id);
-        return view('peraturan.index', compact('keluarga'));
+        return view('peraturan.index', compact('keluarga', 'id_user_hubungan'));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pemasukan;
 use App\Http\Controllers\Controller;
 use App\Models\BayarPinjaman;
+use App\Models\Keluarga;
 use App\Models\Pengajuan;
 use App\Models\Pengeluaran;
 use App\Models\Program;
@@ -26,15 +27,39 @@ class PemasukanController extends Controller
         $data_pemasukan_semua = Pemasukan::orderByRaw('created_at DESC')->where('kategori', 'KAS')->get();
         $data_pemasukan_setor_tunai = Pemasukan::orderByRaw('created_at DESC')->where('kategori', 'Setor_Tunai')->get();
 
-        $data_pemasukan_kas_user = Pemasukan::orderByRaw('created_at DESC')->where('kategori', 'Kas')->where('anggota_id', Auth::user()->id)->orderBy('anggota_id')->get();
-
+        $id = User::find(Auth::user()->id); // data user di table user
+        $data_keluarga = Keluarga::find($id->keluarga_id); //data user di data keluarga
+        $id_user_hubungan = $data_keluarga->keluarga->user_id;
+        if ($data_keluarga->hubungan == "Istri" || $data_keluarga->hubungan == "Suami") {
+            $data_pemasukan_kas_user = Pemasukan::orderByRaw('created_at DESC')->where('kategori', 'Kas')->where('anggota_id', $id_user_hubungan)->orderBy('anggota_id')->get();
+        } else {
+            $data_pemasukan_kas_user = Pemasukan::orderByRaw('created_at DESC')->where('kategori', 'Kas')->where('anggota_id', Auth::user()->id)->orderBy('anggota_id')->get();
+        }
         $data_pemasukan_tabungan_user = Pemasukan::orderByRaw('created_at DESC')->where('kategori', 'Tabungan')->where('anggota_id', Auth::user()->id)->orderBy('anggota_id')->get();
         $program = Program::Find(1);
-        $cek_pengajuan = Pengajuan::where('kategori', 'Kas')->where('anggota_id', Auth::id())->count();
+        // cek pengajuan
+        $id = User::find(Auth::user()->id); // mengambil data user yang login
+        $data_keluarga = Keluarga::find($id->keluarga_id); //mengambil data dari data keluarga sesuai dengan id dari yang login
+        $id_user_hubungan = Keluarga::find($data_keluarga->keluarga_id); //mengambil id dari hubungan si penglogin
+
+        if (
+            $data_keluarga->hubungan == "Istri" || $data_keluarga->hubungan == "Suami"
+        ) {
+            $cek_pengajuan = Pengajuan::where('kategori', 'Kas')->where('anggota_id', $id_user_hubungan->user_id)->count();
+        } else {
+            $cek_pengajuan = Pengajuan::where('kategori', 'Kas')->where('anggota_id', Auth::id())->count();
+        }
+
+
+
+
         $data_anggota = User::all();
         $data1 = Carbon::now();
 
-        return view('pemasukan.index', compact('data_pemasukan_semua', 'data_pemasukan_kas_user', 'data_pemasukan_tabungan_user',  'program', 'cek_pengajuan', 'data_anggota', 'data_pemasukan_setor_tunai', 'data1'));
+        $id = User::find(Auth::user()->id); // data user di table user
+        $data_keluarga = Keluarga::find($id->keluarga_id); //data user di data keluarga
+
+        return view('pemasukan.index', compact('data_pemasukan_semua', 'data_pemasukan_kas_user', 'data_pemasukan_tabungan_user',  'program', 'cek_pengajuan', 'data_anggota', 'data_pemasukan_setor_tunai', 'data1', 'data_keluarga'));
     }
 
     /**
@@ -91,6 +116,7 @@ class PemasukanController extends Controller
 
         $data_pemasukan = new Pemasukan();
         $data_pemasukan->anggota_id = $request->anggota_id;
+        $data_pemasukan->pengaju_id = $request->pengaju_id;
         $data_pemasukan->jumlah = $request->jumlah;
         $data_pemasukan->pembayaran = $request->pembayaran;
         $data_pemasukan->kategori = $request->kategori;

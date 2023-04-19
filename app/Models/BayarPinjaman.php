@@ -15,6 +15,10 @@ class BayarPinjaman extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function pengaju()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function anggota()
     {
         return $this->belongsTo(User::class);

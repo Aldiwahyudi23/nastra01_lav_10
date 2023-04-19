@@ -96,6 +96,7 @@
 
                             <input type="hidden" id="pengajuan_id" name="pengajuan_id" value="{{ $data_pengajuan->id }}">
                             <input type="hidden" id="anggota_id" name="anggota_id" value="{{ $data_pengajuan->anggota_id }}">
+                            <input type="hidden" id="pengaju_id" name="pengaju_id" value="{{ $data_pengajuan->pengaju_id }}">
                             <input type="hidden" id="jumlah" name="jumlah" value=" {{ $data_pengajuan->jumlah }}">
                             <input type="hidden" id="keterangan" name="keterangan" value="{{ $data_pengajuan->keterangan }}">
                             <input type="hidden" id="tanggal" name="tanggal" value="{{ $data_pengajuan->created_at }}">
@@ -131,6 +132,7 @@
                             <input type="hidden" id="pengajuan_id" name="pengajuan_id" value="{{ $data_pengajuan->id }}">
                             <input type="hidden" id="anggaran_id" name="anggaran_id" value="7">
                             <input type="hidden" id="anggota_id" name="anggota_id" value="{{ $data_pengajuan->anggota_id }}">
+                            <input type="hidden" id="pengaju_id" name="pengaju_id" value="{{ $data_pengajuan->pengaju_id }}">
                             <input type="hidden" id="jumlah" name="jumlah" value=" {{ $data_pengajuan->jumlah }}">
                             <input type="hidden" id="tanggal" name="tanggal" value="{{ $data_pengajuan->created_at }}">
                             <input type="hidden" id="status" name="status" value="Sukses">
@@ -150,6 +152,7 @@
 
                             <input type="hidden" id="pengajuan_id" name="pengajuan_id" value="{{ $data_pengajuan->id }}">
                             <input type="hidden" id="anggota_id" name="anggota_id" value="{{ $data_pengajuan->anggota_id }}">
+                            <input type="hidden" id="pengaju_id" name="pengaju_id" value="{{ $data_pengajuan->pengaju_id }}">
                             <input type="hidden" id="jumlah" name="jumlah" value=" {{ $data_pengajuan->jumlah }}">
                             <input type="hidden" id="keterangan" name="keterangan" value="{{ $data_pengajuan->keterangan }}">
                             <input type="hidden" id="tanggal" name="tanggal" value="{{ $data_pengajuan->created_at }}">

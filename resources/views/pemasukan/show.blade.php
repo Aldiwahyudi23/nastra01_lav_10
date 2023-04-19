@@ -30,6 +30,11 @@
                                     <td>{{ $data_pemasukan->anggota->name }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Di Input oleh</td>
+                                    <td>:</td>
+                                    <td>{{ $data_pemasukan->pengaju->name }}</td>
+                                </tr>
+                                <tr>
                                     <td>Nominal</td>
                                     <td>:</td>
                                     <td>{{ "Rp " . number_format($data_pemasukan->jumlah,2,',','.') }}</td>

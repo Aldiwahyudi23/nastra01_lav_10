@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('keluargas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->string('nama')->unique();
             $table->string('nik')->unique()->nullable();
             $table->string('no_hp')->nullable();

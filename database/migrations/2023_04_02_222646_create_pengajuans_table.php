@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('lama')->nullable();
             $table->string('pengeluaran_id')->nullable();
             $table->foreignId('anggota_id')->nullable();
+            $table->foreignId('pengaju_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

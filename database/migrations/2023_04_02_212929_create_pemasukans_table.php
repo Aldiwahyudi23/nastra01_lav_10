@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('pembayaran', 500);
             $table->string('foto', 500)->nullable();
             $table->foreignId('anggota_id')->references('id')->on('users');
+            $table->foreignId('pengaju_id')->references('id')->on('users');
             $table->foreignId('pengurus_id')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();

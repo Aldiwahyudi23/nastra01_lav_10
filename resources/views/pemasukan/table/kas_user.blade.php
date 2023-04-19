@@ -3,8 +3,13 @@
          <th>No</th>
          <th>Bulan</th>
          <th>Nominal</th>
+         <th>Anggota</th>
+         <th>Di Input oleh </th>
          <th>Pembayaran</th>
          <th>Ket</th>
+         <th>Tanggal Input</th>
+         <th>Tanggal di Setujui</th>
+         <th>Di Setujui Oleh</th>
          <th>Aksi</th>
      </tr>
  </thead>
@@ -18,9 +23,14 @@
      <tr>
          <td>{{$no}}</td>
          <td>{{date('M-y',strtotime($data->tanggal)) }}</td>
-         <td>{{ "Rp " . number_format($data->jumlah,2,',','.') }}</td>
+         <td>{{ "Rp " . number_format($data->jumlah) }}</td>
+         <td>{{$data->anggota->name}}</td>
+         <td>{{$data->pengaju->name}}</td>
          <td>{{$data->pembayaran}}</td>
          <td style="width:100%;"> {!!$data->keterangan!!}</td>
+         <td>{{$data->tanggal}}</td>
+         <td>{{$data->created_at}}</td>
+         <td>{{$data->pengurus->name}}</td>
          <td>
              <form action="{{route('pemasukan.destroy',Crypt::encrypt($data->id))}}" method="POST">
                  @csrf

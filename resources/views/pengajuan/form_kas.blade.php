@@ -1,3 +1,15 @@
+<?php
+
+use App\Models\Keluarga;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+$id = User::find(Auth::user()->id); // mengambil data user yang login
+$data_keluarga = Keluarga::find($id->keluarga_id); //mengambil data dari data keluarga sesuai dengan id dari yang login
+$id_user_hubungan = Keluarga::find($data_keluarga->keluarga_id); //mengambil id dari hubungan si penglogin
+
+?>
+{{$id_user_hubungan->user_id}}
 <center>
     <img src="https://media.tenor.com/LAkobF0eiDwAAAAC/assalamu-alaikum-salam.gif" alt="" width="50%">
     <h5 class="text-bold card-header bg-light p-0"> BAYAR KAS</h5>
@@ -23,6 +35,7 @@
         <div class="form-group row">
             <label for="jumlah">Nominal</label>
             <input type="hidden" name="anggota_id" id="anggota_id" value="{{Auth::id()}}">
+            <input type="hidden" name="pengaju_id" id="pengaju_id" value="{{Auth::id()}}">
             <input type="hidden" name="kategori" id="kategori" value="Kas">
             <input type="text" id="jumlah" name="jumlah" value="{{ old('jumlah') }}" placeholder="Cont : 50000    jangan pake titik ataupun koma" class="form-control col-12 @error('jumlah') is-invalid @enderror">
             @error('jumlah')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BayarPinjaman;
 use App\Http\Controllers\Controller;
+use App\Models\Keluarga;
 use App\Models\Pengajuan;
 use App\Models\Pengeluaran;
 use App\Models\User;
@@ -57,6 +58,7 @@ class BayarPinjamanController extends Controller
 
         $data_pemasukan = new BayarPinjaman();
         $data_pemasukan->anggota_id = $request->anggota_id;
+        $data_pemasukan->pengaju_id = $request->pengaju_id;
         $data_pemasukan->jumlah = $request->jumlah;
         $data_pemasukan->pembayaran = $request->pembayaran;
         $data_pemasukan->pengeluaran_id = $request->pengeluaran_id;
@@ -138,7 +140,20 @@ class BayarPinjamanController extends Controller
         $data_setor = Pengeluaran::orderByRaw('created_at DESC')->get();
         $data_anggota = User::orderByRaw('name ASC')->get();
 
-        $cek_pengajuan = Pengajuan::where('kategori', 'Bayar_Pinjaman')->count();
+        // cek pengajuan
+        $id_user = User::find(Auth::user()->id); // mengambil data user yang login
+        $data_keluarga = Keluarga::find($id_user->keluarga_id); //mengambil data dari data keluarga sesuai dengan id dari yang login
+        $id_user_hubungan = Keluarga::find($data_keluarga->keluarga_id); //mengambil id dari hubungan si penglogin
+
+        if (
+            $data_keluarga->hubungan == "Istri" || $data_keluarga->hubungan == "Suami"
+        ) {
+            $cek_pengajuan = Pengajuan::where('kategori', 'Bayar_Pinjaman')->where('anggota_id', $id_user_hubungan->user_id)->count();
+        } else {
+            $cek_pengajuan = Pengajuan::where('kategori', 'Bayar_Pinjaman')->where('anggota_id', Auth::id())->count();
+        }
+
+
         $bayar_pinjam = BayarPinjaman::where('pengeluaran_id', $id)->get();
         $total_bayar_pinjam = BayarPinjaman::where('pengeluaran_id', $id)->sum('jumlah');
 
