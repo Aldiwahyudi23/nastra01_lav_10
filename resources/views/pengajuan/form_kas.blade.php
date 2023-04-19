@@ -1,19 +1,28 @@
-<?php
-
-use App\Models\Keluarga;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-
-$id = User::find(Auth::user()->id); // mengambil data user yang login
-$data_keluarga = Keluarga::find($id->keluarga_id); //mengambil data dari data keluarga sesuai dengan id dari yang login
-$id_user_hubungan = Keluarga::find($data_keluarga->keluarga_id); //mengambil id dari hubungan si penglogin
-
-?>
-{{$id_user_hubungan->user_id}}
 <center>
     <img src="https://media.tenor.com/LAkobF0eiDwAAAAC/assalamu-alaikum-salam.gif" alt="" width="50%">
     <h5 class="text-bold card-header bg-light p-0"> BAYAR KAS</h5>
 </center>
+<table id="" class="table table-bordered ">
+    <tbody>
+        @foreach ($cek_pemasukan_terakhir as $data)
+        <tr>
+            <td>Pembayaran terakhir <b> {{$data->anggota->name}} </b> di Bulan <b> {{date('M-y',strtotime($data->tanggal)) }} </b></td>
+        </tr>
+        <tr>
+            <td>{{ "Rp " . number_format($data->jumlah,2,',','.') }}</td>
+        </tr>
+        <tr>
+            <td>Tanggal pengajuan {{$data->tanggal}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+<div class="">
+    <h6 class=" text-center">Keterangan</h6>
+    {!!$data->keterangan!!}
+</div>
+<hr>
+
 <div class="">
     <form id="basic-form" action="{{Route('pengajuan.store')}}" method="POST" enctype="multipart/form-data" novalidate>
         {{csrf_field()}}

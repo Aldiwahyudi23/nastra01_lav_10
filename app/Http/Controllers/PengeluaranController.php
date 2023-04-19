@@ -39,7 +39,7 @@ class PengeluaranController extends Controller
         }
         // sampe die
         $program = Anggaran::Find(3);
-        $cek_pengajuan = Pengajuan::where('kategori', 'Pinjaman')->where('anggota_id', Auth::id())->count();
+        $cek_pengajuan = Pengajuan::orderByRaw('created_at DESC')->where('kategori', 'Pinjaman')->where('anggota_id', Auth::id())->count();
         $cek_pengajuan_proses = Pengajuan::where('anggota_id', Auth::id())->get();
         $cek_pengeluaran_pinjaman = Pengeluaran::where('anggaran_id', 3)->where('status', 'Nunggak')->count();
 
@@ -53,12 +53,12 @@ class PengeluaranController extends Controller
         $cek_total_pinjaman = $tahap_1 / 2; // Menghitung total Anggaran
         $jatah = $cek_total_pinjaman * $data_anggaran_max_pinjaman->persen / 100; //Jath Persenan di ambil dari data anggaran
         // Data Dana Darurat
-        $dana_darurat = Pengeluaran::where('anggaran_id', 1)->get();
-        $dana_amal = Pengeluaran::where('anggaran_id', 2)->get();
-        $dana_pinjam = Pengeluaran::where('anggaran_id', 3)->get();
-        $dana_usaha = Pengeluaran::where('anggaran_id', 4)->get();
-        $dana_acara = Pengeluaran::where('anggaran_id', 5)->get();
-        $dana_lain = Pengeluaran::where('anggaran_id', 6)->get();
+        $dana_darurat = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 1)->get();
+        $dana_amal = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 2)->get();
+        $dana_pinjam = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 3)->get();
+        $dana_usaha = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 4)->get();
+        $dana_acara = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 5)->get();
+        $dana_lain = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 6)->get();
 
         return view('pengeluaran.index', compact('data_pengeluaran_semua', 'data_pengeluaran_pinjaman', 'program', 'cek_pengajuan', 'cek_pengajuan_proses', 'cek_pengeluaran_pinjaman_user', 'cek_pengeluaran_pinjaman', 'cek_total_pinjaman', 'jatah', 'data_anggaran', 'data_anggaran_max_pinjaman', 'dana_darurat', 'dana_amal', 'dana_pinjam', 'dana_usaha', 'dana_acara', 'dana_lain'));
     }
@@ -69,7 +69,7 @@ class PengeluaranController extends Controller
     public function create()
     {
         $data_pengeluaran_semua = Pengeluaran::all();
-        $data_pengeluaran_pinjaman = Pengeluaran::where('anggaran_id', 3)->where('anggota_id', Auth::user()->id)->get();
+        $data_pengeluaran_pinjaman = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 3)->where('anggota_id', Auth::user()->id)->get();
         $program = Anggaran::Find(3);
         $cek_pengajuan = Pengajuan::where('kategori', 'Pinjaman')->where('anggota_id', Auth::id())->count();
         $cek_pengajuan_proses = Pengajuan::where('anggota_id', Auth::id())->get();
@@ -86,12 +86,12 @@ class PengeluaranController extends Controller
         $cek_total_pinjaman = $tahap_1 / 2; // Menghitung total Anggaran
         $jatah = $cek_total_pinjaman * $data_anggaran_max_pinjaman->persen / 100; //Jath Persenan di ambil dari data anggaran
         // Data Dana Darurat
-        $dana_darurat = Pengeluaran::where('anggaran_id', 1)->get();
-        $dana_amal = Pengeluaran::where('anggaran_id', 2)->get();
-        $dana_pinjam = Pengeluaran::where('anggaran_id', 3)->get();
-        $dana_usaha = Pengeluaran::where('anggaran_id', 4)->get();
-        $dana_acara = Pengeluaran::where('anggaran_id', 5)->get();
-        $dana_lain = Pengeluaran::where('anggaran_id', 6)->get();
+        $dana_darurat = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 1)->get();
+        $dana_amal = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 2)->get();
+        $dana_pinjam = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 3)->get();
+        $dana_usaha = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 4)->get();
+        $dana_acara = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 5)->get();
+        $dana_lain = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 6)->get();
 
         return view('pengeluaran.form_input_pengeluaran', compact('data_pengeluaran_semua', 'data_pengeluaran_pinjaman', 'program', 'cek_pengajuan', 'cek_pengajuan_proses', 'cek_pengeluaran_pinjaman_user', 'cek_pengeluaran_pinjaman', 'cek_total_pinjaman', 'jatah', 'data_anggaran', 'data_anggaran_max_pinjaman', 'dana_darurat', 'dana_amal', 'dana_pinjam', 'dana_usaha', 'dana_acara', 'dana_lain'));
     }
@@ -317,9 +317,9 @@ class PengeluaranController extends Controller
     {
         $id = Crypt::decrypt($id);
         if ($id == 6) {
-            $data_pengeluaran = Pengeluaran::where('anggaran_id', 6)->get();
+            $data_pengeluaran = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', 6)->get();
         } else {
-            $data_pengeluaran = Pengeluaran::where('anggaran_id', $id)->get();
+            $data_pengeluaran = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', $id)->get();
         }
 
         return view('pengeluaran.show_pengeluaran_peranggaran', compact('data_pengeluaran'));
@@ -328,7 +328,7 @@ class PengeluaranController extends Controller
     {
         $id = Crypt::decrypt($id);
 
-        $data_pengeluaran = Pengeluaran::where('anggaran_id', $id)->get();
+        $data_pengeluaran = Pengeluaran::orderByRaw('created_at DESC')->where('anggaran_id', $id)->get();
 
 
         return view('pengeluaran.show_pengeluaran_peranggaran_pinjaman', compact('data_pengeluaran'));
