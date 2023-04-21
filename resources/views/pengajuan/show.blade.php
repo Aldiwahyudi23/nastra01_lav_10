@@ -51,14 +51,19 @@
                                     <td>{{ $data_pengajuan->kategori }}</td>
                                 </tr>
                                 <tr>
+                                <tr>
                                     <td>Nama Anggoota</td>
                                     <td>:</td>
                                     <td>{{ $data_pengajuan->anggota->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Nominal</td>
+                                    <td>Di Input Oleh</td>
                                     <td>:</td>
-                                    <td>{{ "Rp " . number_format($data_pengajuan->jumlah,2,',','.') }}</td>
+                                    <td>{{ $data_pengajuan->pengaju->name }}</td>
+                                </tr>
+                                <td>Nominal</td>
+                                <td>:</td>
+                                <td>{{ "Rp " . number_format($data_pengajuan->jumlah,2,',','.') }}</td>
                                 </tr>
                                 <tr>
                                     <td>Pembayaran</td>

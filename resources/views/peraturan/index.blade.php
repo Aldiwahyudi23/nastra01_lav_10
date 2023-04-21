@@ -76,6 +76,10 @@
                                         <td width="50"><i class="nav-icon fas fa-list"></i></td>
                                         <td> <a href="/roleprogram " class="text-dark">Program<a></td>
                                     </tr>
+                                    <tr>
+                                        <td width="50"><i class="nav-icon fas fa-list"></i></td>
+                                        <td> <a href="{{Route('role.show',Crypt::encrypt(5)))}} " class="text-dark">Cek Tugas<a></td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
