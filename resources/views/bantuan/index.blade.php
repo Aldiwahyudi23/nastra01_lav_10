@@ -173,7 +173,7 @@
         <!-- Main Footer -->
         <footer class="main-footer">
             <marquee>
-                <strong>KELUARGA BESAR Alm. MA HAYA. Mengucapkan selamat menunaikan Ibadah PUASA </strong>
+                <strong>KELUARGA BESAR Alm. MA HAYA, Selamat Hari lebaran </strong>
             </marquee>
         </footer>
     </div>

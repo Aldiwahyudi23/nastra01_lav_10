@@ -350,7 +350,7 @@ $data_pinjaman = AsetPinjam::find(1);
                     </ul>
                 </li>
                 @endif
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
@@ -370,7 +370,7 @@ $data_pinjaman = AsetPinjam::find(1);
                         </li>
                         @endforeach
                     </ul>
-                </li>
+                </li> -->
 
                 <li class="nav-item">
                     <a href="{{Route('asetpinjam.index')}}" class="nav-link">

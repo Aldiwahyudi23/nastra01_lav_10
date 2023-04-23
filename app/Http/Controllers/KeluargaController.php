@@ -411,4 +411,21 @@ class KeluargaController extends Controller
             return redirect()->back()->with('error', 'Tolong masukkan password lama anda terlebih dahulu!');
         }
     }
+
+    public function keturunan()
+    {
+        $data_keluarga_tugu = Keluarga::where('tugu', 'ya')->get();
+        $data_keluarga = Keluarga::all();
+        return view('admin.master_data.data_keluarga.keturunan.index', compact('data_keluarga', 'data_keluarga_tugu'));
+    }
+    public function keturunan_detail($id)
+    {
+        $id = Crypt::decrypt($id);
+        $data_anggota = Keluarga::find($id);
+
+        $data_keluarga_hubungan = Keluarga::where('keluarga_id', $id)->get();
+        $data_keluarga = Keluarga::all();
+
+        return view('admin.master_data.data_keluarga.keturunan.detail', compact('data_keluarga', 'data_anggota', 'data_keluarga_hubungan'));
+    }
 }
