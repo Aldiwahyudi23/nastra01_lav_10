@@ -79,10 +79,6 @@
                                      <th>Aksi</th>
                                  </tr>
                              </thead>
-
-                             <?php $no++;
-                                $status2 = DB::table('pengeluarans')->find($data->id);
-                                ?>
                              <tbody>
                                  <?php $no = 0; ?>
                                  @php
