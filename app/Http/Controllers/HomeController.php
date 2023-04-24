@@ -34,7 +34,7 @@ class HomeController extends Controller
         $data_login = User::select('*')
             ->whereNotNull('last_seen')
             ->orderBy('last_seen', 'DESC')
-            ->paginate(10);
+            ->paginate();
 
         // data Pemasukan
         $data_pemasukan = Pemasukan::all();

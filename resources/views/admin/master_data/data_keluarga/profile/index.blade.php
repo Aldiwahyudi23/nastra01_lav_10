@@ -8,7 +8,7 @@
         <div class="card-body box-profile">
             <div class="text-center">
 
-                <a href="{{ asset(Auth::user()->foto) }}" data-toggle="lightbox" data-title="Foto Profile {{ Auth::user()->name }}" data-gallery="gallery" data-footer=' <form action="{{Route('anggota.update.foto', Crypt::encrypt(Auth::user()->id))}}" method="post" enctype="multipart/form-data">
+                <a href="{{ asset(Auth::user()->foto) }}" data-toggle="lightbox" data-title="Foto Profile {{ Auth::user()->name }}" data-gallery="gallery" data-footer=' <form action="{{ Route('anggota.update.foto', Crypt::encrypt(Auth::user()->id)) }}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}<input type="file" class="form-control"  name=" foto" id="foto"> <input type="hidden" class="form-control" name=" user" id="user" value="{{$data_keluarga->keluarga_id}}"> <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-file-upload"></i> </button></form>'>
 
 
@@ -16,6 +16,10 @@
                 </a>
 
             </div>
+            <form action="{{ Route('anggota.update.foto', Crypt::encrypt(Auth::user()->id)) }}" method="post" enctype="multipart/form-data">
+                {{csrf_field()}}<input type="file" class="form-control" name=" foto" id="foto"> <input type="hidden" class="form-control" name=" user" id="user" value="{{$data_keluarga->keluarga_id}}"> <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-file-upload"></i> </button>
+            </form>
+
             <h3 class="profile-username text-center">{{ $data_keluarga->nama }}</h3>
             <h5 class="profile-username text-center">( {{ Auth::user()->name }} )</h5>
             <!-- <p class="text-muted text-center">{{ Auth::user()->role }}</p> -->
@@ -152,8 +156,7 @@
 </div>
 @endsection
 
-@section('script')
-<script>
+@section(' script') <script>
     $("#profile").addClass("active");
 </script>
 @endsection
