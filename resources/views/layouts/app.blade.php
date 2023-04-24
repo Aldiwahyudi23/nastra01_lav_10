@@ -28,21 +28,21 @@
 
 </head>
 
-<body class="hold-transition login-page" style="background-image: url('https://media.tenor.com/xAmcAf74YKMAAAAd/teman-surga-teman-surga-malang.gif'); background-size: 100%; background-attachment: fixed;">
+<body class="hold-transition login-page" style="background-image: url('{{ asset("img/lembur.png") }}'); background-size: cover; background-attachment: fixed;">
     <div class="login-box">
-        <marquee style="color: dark;">
+        <marquee style="color: white;">
             <h2> <strong>Bilih kantos kasisit ati, kapancah kalengkah ucap, kajenggut kababuk catur, tawakufna nu kasuhun. Hapunten sadaya kalepatan. Wilujeng boboran siam 1444 H. Taqqobalallahu Minaa Wa Minkum.
                 </strong></h2>
         </marquee>
         <div class="login-logo">
-            <img src="{{ asset('img/fitri.png') }}" width="50%" alt="">
+            <img src="{{ asset('img/logo.jpg') }}" width="50%" alt="">
         </div>
 
         <div>
             @yield('content')
         </div>
 
-        <footer style="color: dark;">
+        <footer style="color: white;">
             <marquee>
                 <strong>KELUARGA BESAR Alm. MA HAYA </strong>
             </marquee>

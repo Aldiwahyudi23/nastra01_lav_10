@@ -47,7 +47,7 @@ $data_keluarga = Keluarga::find($id->keluarga_id); //data user di data keluarga
     </ul>
 
     <marquee>
-        <strong>KELUARGA BESAR Alm. MA HAYA. Mengucapkan selamat menunaikan Ibadah PUASA </strong>
+        <strong>KELUARGA BESAR Alm. MA HAYA</strong>
     </marquee>
 
 </footer>

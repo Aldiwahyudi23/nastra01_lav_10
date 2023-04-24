@@ -26,7 +26,9 @@
                                         </ul>
                                     </div>
                                     <div class="col-5 text-center">
-                                        <img src="{{ asset($data->foto) }}" alt="user-avatar" class="img-circle img-fluid">
+                                        <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->name }}" data-gallery="gallery">
+                                            <img src="{{ asset($data->foto) }}" alt="user-avatar" class="img-circle img-fluid">
+                                        </a>
                                     </div>
                                 </div>
                             </div>
