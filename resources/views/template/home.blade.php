@@ -247,6 +247,7 @@
         $data_anggaran = Anggaran::all();
         $data_anggaran_max_pinjaman = Anggaran::find(3);
         $cek_semua_pemasukan = Pemasukan::where('kategori', 'Kas')->sum('jumlah');
+        $total_pemasukan_kas = Pemasukan::where('kategori', 'Kas')->sum('jumlah'); //Menghitung semua pemasukan kas
         $cek_pemasukan_2 = $cek_semua_pemasukan / 2; // Membagi jumlah semua pemasukan
         $tahap_1 = $cek_pemasukan_2 * 90 / 100; // Menghitung Jumlah anggaran pinjaman dari hasil pembagian 2,
 
@@ -276,10 +277,6 @@
 
         $saldo_kas = $total_pemasukan_kas - $total_pengeluaran_kas;
         $cek_total_pinjaman = $saldo_kas -  $total_pengeluaran_pinjaman + $total_bayar_pinjaman_semua; // Menghitung total Anggaran
-        $jatah = $cek_total_pinjaman * $data_anggaran_max_pinjaman->persen / 100; //Jath Persenan di ambil dari data anggaran
-        // Data Dana Darurat
-
-        $cek_total_pinjaman = $tahap_1 / 2; // Menghitung total Anggaran
         $jatah = $cek_total_pinjaman * $data_anggaran_max_pinjaman->persen / 100; //Jath Persenan di ambil dari data anggaran
 
         ?>
