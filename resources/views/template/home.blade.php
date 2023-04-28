@@ -235,6 +235,7 @@
         use App\Models\Anggaran;
         use App\Models\BayarPinjaman;
         use App\Models\Pemasukan;
+        use App\Models\Pengeluaran;
 
         $total_pembayaran_cash = Pemasukan::where('pembayaran', 'Cash')->sum('jumlah');
         // menghitung jumlah setor tunai
@@ -248,8 +249,39 @@
         $cek_semua_pemasukan = Pemasukan::where('kategori', 'Kas')->sum('jumlah');
         $cek_pemasukan_2 = $cek_semua_pemasukan / 2; // Membagi jumlah semua pemasukan
         $tahap_1 = $cek_pemasukan_2 * 90 / 100; // Menghitung Jumlah anggaran pinjaman dari hasil pembagian 2,
+
+
+
+
+        // data pengeluaran
+        $data_pengeluaran = Pengeluaran::all();
+        $total_pengeluaran_all = Pengeluaran::all()->sum('jumlah');
+        $total_pengeluaran_darurat = Pengeluaran::where('anggaran_id', 1)->sum('jumlah');
+        $total_pengeluaran_amal = Pengeluaran::where('anggaran_id', 2)->sum('jumlah');
+        $total_pengeluaran_pinjaman = Pengeluaran::where('anggaran_id', 3)->sum('jumlah');
+        $total_pengeluaran_usaha = Pengeluaran::where('anggaran_id', 4)->sum('jumlah');
+        $total_pengeluaran_acara = Pengeluaran::where('anggaran_id', 5)->sum('jumlah');
+        $total_pengeluaran_lain = Pengeluaran::where('anggaran_id', 6)->sum('jumlah');
+        $total_pengeluaran_tarik_pinjaman = Pengeluaran::where('anggaran_id', 7)->sum('jumlah');
+
+        // Perhitungan pembayaran pinjaman
+        $total_bayar_pinjaman_semua = BayarPinjaman::all()->sum('jumlah');
+        $total_bayar_pinjaman_cash = BayarPinjaman::where('pembayaran', 'Cash')->sum('jumlah');
+        $total_bayar_pinjaman_tf = BayarPinjaman::where('pembayaran', 'Transfer')->sum('jumlah');
+
+
+
+        $total_pengeluaran_kas = $total_pengeluaran_darurat + $total_pengeluaran_amal  + $total_pengeluaran_usaha + $total_pengeluaran_acara + $total_pengeluaran_lain;
+        $total_pengeluaran_kas_3 = $total_pengeluaran_lain + $total_pengeluaran_usaha + $total_pengeluaran_acara;
+
+        $saldo_kas = $total_pemasukan_kas - $total_pengeluaran_kas;
+        $cek_total_pinjaman = $saldo_kas -  $total_pengeluaran_pinjaman + $total_bayar_pinjaman_semua; // Menghitung total Anggaran
+        $jatah = $cek_total_pinjaman * $data_anggaran_max_pinjaman->persen / 100; //Jath Persenan di ambil dari data anggaran
+        // Data Dana Darurat
+
         $cek_total_pinjaman = $tahap_1 / 2; // Menghitung total Anggaran
         $jatah = $cek_total_pinjaman * $data_anggaran_max_pinjaman->persen / 100; //Jath Persenan di ambil dari data anggaran
+
         ?>
         let jumlah_pinjam = document.getElementById("jumlah");
         let button_pinjam = document.getElementById("myBtn_pinjam");

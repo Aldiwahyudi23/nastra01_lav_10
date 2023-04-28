@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color: #f70404;">
+<nav class="main-header navbar navbar-expand navbar-white navbar-dark" style="background-color: #f70404;">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -26,7 +26,7 @@
         </li>
         <li class="nav-item">
             <a class="brand-link" style="color: #fff;" data-widget="pushmenu" href="#">
-                <img src="{{ asset('img/nastra-logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+                <img src="{{ asset('img/nastra-logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle">
             </a>
         </li>
     </ul>
@@ -172,7 +172,7 @@
         <!-- notif khusus Ketua dan hanya pengajuan pinjaman saja -->
         <!-- Notifications Dropdown Menu -->
 
-        <li class="nav-item">
+        <li class="nav-item ">
             <a class="nav-link active" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
