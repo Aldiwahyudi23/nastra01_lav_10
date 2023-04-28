@@ -8,8 +8,7 @@ $id = User::find(Auth::user()->id); // data user di table user
 $data_keluarga = Keluarga::find($id->keluarga_id); //data user di data keluarga
 
 ?>
-
-<footer id"headera" class=" navbar-light bg-white navbar-expand d-md-none d-lg-none d-xl-none" id="headera">
+<footer id"headera" class=" navbar-dark navbar-expand d-md-none d-lg-none d-xl-none" style="background-color: #f70404;" id="headera">
     <ul class="navbar-nav nav-justified nav nav-treeview nav-pills" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item" role="button">
             <a href="/" class="nav-link text-center " id="imah"><i class=" fas fa-home lg-6" width="1.5em" height="1.5em"></i><span class="small d-block">Home</span></a>
@@ -47,7 +46,7 @@ $data_keluarga = Keluarga::find($id->keluarga_id); //data user di data keluarga
     </ul>
 
     <marquee>
-        <strong>KELUARGA BESAR Alm. MA HAYA</strong>
+        <strong>TUNAS NUSANTARA 01</strong>
     </marquee>
 
 </footer>

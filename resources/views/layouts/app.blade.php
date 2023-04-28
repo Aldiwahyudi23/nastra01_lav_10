@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Keluarga Ma Haya') }}</title>
+    <title>{{ config('app.name', 'Nastra') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -24,18 +24,18 @@
     <link rel="stylesheet" href="{{ asset('layouts/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('layouts/plugins/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('layouts/dist/css/adminlte.min.css') }}">
-    <link rel="shrotcut icon" href="{{ asset('img/logo.jpg') }}">
+    <link rel="shrotcut icon" href="{{ asset('img/nastra-logo.png') }}">
 
 </head>
 
-<body class="hold-transition login-page" style="background-image: url('{{ asset("img/lembur.png") }}'); background-size: cover; background-attachment: fixed;">
+<body class="hold-transition login-page" style="background-image: url('{{ asset("img/garuda.jpg") }}'); background-size: cover; background-attachment: fixed;">
     <div class="login-box">
         <marquee style="color: white;">
             <h2> <strong>Bilih kantos kasisit ati, kapancah kalengkah ucap, kajenggut kababuk catur, tawakufna nu kasuhun. Hapunten sadaya kalepatan. Wilujeng boboran siam 1444 H. Taqqobalallahu Minaa Wa Minkum.
                 </strong></h2>
         </marquee>
         <div class="login-logo">
-            <img src="{{ asset('img/logo.jpg') }}" width="50%" alt="">
+            <img src="{{ asset('img/nastra-logo.png') }}" width="50%" alt="">
         </div>
 
         <div>
@@ -44,7 +44,7 @@
 
         <footer style="color: white;">
             <marquee>
-                <strong>KELUARGA BESAR Alm. MA HAYA </strong>
+                <strong>TUNAS NUSANTARA </strong>
             </marquee>
         </footer>
     </div>

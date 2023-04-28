@@ -45,7 +45,8 @@
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 0%</span>
-                                    <h5 class="description-header">{{"Rp" . number_format(  $total_dana_kas - $total_pengeluaran_lain,2,',','.')}}</h5>
+                                    <!-- <h5 class="description-header">{{"Rp" . number_format(  $total_dana_kas - $total_pengeluaran_kas_3 ,2,',','.')}}</h5> -->
+                                    <h5 class="description-header">{{"Rp" . number_format(  0 ,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO KAS</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -54,7 +55,8 @@
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
-                                    <h5 class="description-header">{{"Rp" . number_format( $total_dana_darurat - $total_pengeluaran_darurat,2,',','.')}}</h5>
+                                    <!-- <h5 class="description-header">{{"Rp" . number_format( $total_dana_darurat - $total_pengeluaran_darurat,2,',','.')}}</h5> -->
+                                    <h5 class="description-header">{{"Rp" . number_format(0,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO DARURAT</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -63,7 +65,8 @@
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 0%</span>
-                                    <h5 class="description-header">{{"Rp" . number_format( $total_dana_amal - $total_pengeluaran_amal,2,',','.')}}</h5>
+                                    <!-- <h5 class="description-header">{{"Rp" . number_format( $total_dana_amal - $total_pengeluaran_amal,2,',','.')}}</h5> -->
+                                    <h5 class="description-header">{{"Rp" . number_format( 0,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO AMAL</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -247,14 +250,15 @@
                             <div class="col-md-6">
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <b> <a href="{{route('data_pemasukan_all')}}" class="product-title">Saldo Kas</a>
-                                        <h4>{{"Rp" . number_format( $saldo_kas,2,',','.')}}</h4>
+                                        <h4>{{"Rp" . number_format( $saldo_kas -  $total_pengeluaran_pinjaman + $total_bayar_pinjaman_semua ,2,',','.')}}</h4>
                                         <p> Jumlah Total saldo anu aya di bendahara atawa sisa tina pengeluaran termasuk data pinjaman. </p>
                                         <hr />
                                     </b>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="{{route('anggaran.show',Crypt::encrypt(1))}}" class="product-title">Jumlah Dana Darurat</a>
-                                    <h5>{{ "Rp " . number_format($total_dana_darurat - $total_pengeluaran_darurat ,2,',','.') }}</h5>
+                                    <!-- <h5>{{ "Rp " . number_format($total_dana_darurat - $total_pengeluaran_darurat ,2,',','.') }}</h5> -->
+                                    <h5>{{ "Rp " . number_format(0 ,2,',','.') }}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="{{Route('table_pengeluaran_detail',Crypt::encrypt(1))}}" class="product-title">Jumlah Dana Darurat nu tos ka angge </a>
@@ -263,7 +267,8 @@
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="{{route('anggaran.show',Crypt::encrypt(2))}}" class="product-title">Jumlah Dana Amal</a>
-                                    <h5>{{ "Rp " . number_format($total_dana_amal - $total_pengeluaran_amal,2,',','.') }}</h5>
+                                    <!-- <h5>{{ "Rp " . number_format($total_dana_amal - $total_pengeluaran_amal,2,',','.') }}</h5> -->
+                                    <h5>{{ "Rp " . number_format(0,2,',','.') }}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="{{Route('table_pengeluaran_detail',Crypt::encrypt(2))}}" class="product-title">Jumlah Dana Amal nu tos ka angge </a>
@@ -272,16 +277,17 @@
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="{{route('anggaran.show',Crypt::encrypt(6))}}" class="product-title">Jumlah dana KAS</a>
-                                    <h5>{{"Rp" . number_format($total_dana_kas - $total_pengeluaran_lain,2,',','.')}}</h5>
+                                    <!-- <h5>{{"Rp" . number_format($total_dana_kas - $total_pengeluaran_kas_3,2,',','.')}}</h5> -->
+                                    <h5>{{"Rp" . number_format(0,2,',','.')}}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="{{Route('table_pengeluaran_detail',Crypt::encrypt(6))}}" class="product-title">Jumlah Dana Kas nu tos ka angge </a>
-                                    <h7>{{ "Rp " . number_format($total_pengeluaran_lain + $total_pengeluaran_usaha + $total_pengeluaran_acara  ,2,',','.') }}</h7>
+                                    <h7>{{ "Rp " . number_format($total_pengeluaran_kas_3  ,2,',','.') }}</h7>
                                     <hr>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="{{Route('anggaran.show',Crypt::encrypt(3))}}">Jumlah Dana Pinjam</a>
-                                    <h5>{{"Rp" . number_format($total_dana_pinjam -  $total_pengeluaran_pinjaman + $total_bayar_pinjaman_semua,2,',','.')}}</h5>
+                                    <h5>{{"Rp" . number_format($total_dana_pinjam -  $total_pengeluaran_pinjaman + $total_bayar_pinjaman_semua ,2,',','.')}}</h5>
                                 </ul>
                                 <ul class="products-list product-list-in-card pl-1 pr-1">
                                     <a href="{{Route('table_pengeluaran_detail_pinjaman',Crypt::encrypt(3))}}" class="product-title">Sisa Uang nu di pinjem</a>
@@ -350,7 +356,8 @@
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 0%</span>
-                                    <h5 class="description-header">{{"Rp" . number_format(  $total_dana_kas - $total_pengeluaran_lain,2,',','.')}}</h5>
+                                    <!-- <h5 class="description-header">{{"Rp" . number_format(  $total_dana_kas - $total_pengeluaran_kas_3,2,',','.')}}</h5> -->
+                                    <h5 class="description-header">{{"Rp" . number_format(  0,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO KAS</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -359,7 +366,8 @@
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
-                                    <h5 class="description-header">{{"Rp" . number_format( $total_dana_darurat - $total_pengeluaran_darurat,2,',','.')}}</h5>
+                                    <!-- <h5 class="description-header">{{"Rp" . number_format( $total_dana_darurat - $total_pengeluaran_darurat,2,',','.')}}</h5> -->
+                                    <h5 class="description-header">{{"Rp" . number_format( 0,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO DARURAT</span>
                                 </div>
                                 <!-- /.description-block -->
@@ -368,7 +376,8 @@
                             <div class="col-sm-3 col-6">
                                 <div class="description-block border-right">
                                     <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
-                                    <h5 class="description-header">{{"Rp" . number_format( $total_dana_amal - $total_pengeluaran_amal,2,',','.')}}</h5>
+                                    <!-- <h5 class="description-header">{{"Rp" . number_format( $total_dana_amal - $total_pengeluaran_amal,2,',','.')}}</h5> -->
+                                    <h5 class="description-header">{{"Rp" . number_format( 0,2,',','.')}}</h5>
                                     <span class="description-text">TOTAL SALDO AMAL</span>
                                 </div>
                                 <!-- /.description-block -->

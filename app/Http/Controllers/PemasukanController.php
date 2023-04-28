@@ -47,9 +47,11 @@ class PemasukanController extends Controller
         ) {
             $cek_pengajuan = Pengajuan::where('kategori', 'Kas')->where('anggota_id', $id_user_hubungan->user_id)->count();
             $cek_pemasukan_terakhir = Pemasukan::orderByRaw('created_at DESC LIMIT 1')->where('kategori', 'KAS')->where('anggota_id', $id_user_hubungan->user_id)->get();
+            $cek_pemasukan_terakhir_total = Pemasukan::orderByRaw('created_at DESC LIMIT 1')->where('kategori', 'KAS')->where('anggota_id', $id_user_hubungan->user_id)->count();
         } else {
             $cek_pengajuan = Pengajuan::where('kategori', 'Kas')->where('anggota_id', Auth::id())->count();
             $cek_pemasukan_terakhir = Pemasukan::orderByRaw('created_at DESC LIMIT 1')->where('kategori', 'KAS')->where('anggota_id', Auth::user()->id)->get();
+            $cek_pemasukan_terakhir_total = Pemasukan::orderByRaw('created_at DESC LIMIT 1')->where('kategori', 'KAS')->where('anggota_id', Auth::user()->id)->count();
         }
 
 
@@ -61,7 +63,7 @@ class PemasukanController extends Controller
         $id = User::find(Auth::user()->id); // data user di table user
         $data_keluarga = Keluarga::find($id->keluarga_id); //data user di data keluarga
 
-        return view('pemasukan.index', compact('data_pemasukan_semua', 'data_pemasukan_kas_user', 'data_pemasukan_tabungan_user',  'program', 'cek_pengajuan', 'data_anggota', 'data_pemasukan_setor_tunai', 'data1', 'data_keluarga', 'cek_pemasukan_terakhir'));
+        return view('pemasukan.index', compact('data_pemasukan_semua', 'data_pemasukan_kas_user', 'data_pemasukan_tabungan_user',  'program', 'cek_pengajuan', 'data_anggota', 'data_pemasukan_setor_tunai', 'data1', 'data_keluarga', 'cek_pemasukan_terakhir', 'cek_pemasukan_terakhir_total'));
     }
 
     /**

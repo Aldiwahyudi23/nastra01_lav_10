@@ -26,7 +26,7 @@ $data_tugas = Role::all();
 $data_pinjaman = AsetPinjam::find(1);
 ?>
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #f70404;">
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
