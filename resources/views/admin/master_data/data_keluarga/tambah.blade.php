@@ -115,7 +115,7 @@
                                     <hr>
                                     <div class="form-group">
                                         <label for="nama_hubungan">Nama Orang Tua / Suami Istri</label>
-                                        <select id="nama_hubungan" name="nama_hubungan" class="select2bs4 form-control @error('nama_hubungan') is-invalid @enderror">
+                                        <select id="nama_hubungan" name="nama_hubungan" class="select2 form-control @error('nama_hubungan') is-invalid @enderror">
                                             @if (old('nama_hubungan',$data_anggota->nama) == true)
                                             <option value="{{old('nama_hubungan',$data_anggota->id)}}">{{old('nama_hubungan->keluarga->nama',$data_anggota->nama)}}</option>
                                             @endif
