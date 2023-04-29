@@ -62,6 +62,9 @@
                             <img src="{{asset($data_aset->foto)}}" alt="Product Image" width="50%" class=" brand-image elevation-3" style="display:block; margin:auto">
                         </a>
                     </div>
+                    <video width="100%" muted playsinline controls>
+                        <source type="video/mp4" src="{{asset($data_aset->foto)}}">
+                    </video>
                     @endif
                 </table>
 
